@@ -3,12 +3,9 @@ import FormNav from "../components/FormNav";
 import arrow from '../contents/arrow.svg'
 import cross from '../contents/cross.svg'
 import image_icon from '../contents/Image-icon.svg'
+import vegData from '../data/vegData.json'
 
 const Form = () => {
-
-
-    const vegeList = [ "apple","mango", "banana", "pineapple" ]
-
    
   const [page, setPage] = useState(1);
   const [vegetable, setVegetable] = useState('');
@@ -19,10 +16,6 @@ const Form = () => {
   const [weight, setWeight] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
   const [phone, setPhone] = useState('')
-
-
-
-
 
   const handleNextPage = (e) => {
     e.preventDefault();
@@ -60,8 +53,8 @@ const Form = () => {
 
                 <div className="select-container">
                     <select value={vegetable} onChange={(e)=>setVegetable(e.target.value)}>
-                        {vegeList.map((option) => (
-                        <option key={option} value={option}>{option}</option>
+                        {vegData.map((item) => (
+                        <option key={item.code} value={item.name}>{item.name}</option>
                         ))}
                     </select>
                 </div>
