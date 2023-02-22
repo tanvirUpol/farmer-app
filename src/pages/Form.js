@@ -136,8 +136,27 @@ const Form = () => {
          <FormNav title='সবজির মান পরীক্ষা করুন' />
          <div className="container">
             <form onSubmit={handleSubmit}>
-            <label><input type="radio" name="radio"/> Checkbox 1</label>
-            <label><input type="radio" name="radio"/> Checkbox 2</label>
+
+              <div className="question">
+                <p>ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?</p>
+
+                <div className="options">
+                    <div className="option">
+                      <input type="radio" id="yes" name="yes" value="yes"/>
+                      <label for="yes">Yes</label>
+                    </div>
+
+                    <div className="option">
+                      <input type="radio" id="no" name="no" value="no"/>
+                      <label for="no">No</label>
+                    </div>
+                </div>
+                
+                
+
+              </div>
+            
+
               <label>
                 Phone:
                 <input type="tel" value={phone} onChange={(e)=>setPhone(e.target.value)} />

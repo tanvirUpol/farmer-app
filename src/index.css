@@ -215,3 +215,17 @@ textarea{
 }
 
 /* form sectiom 3 */
+
+.question{
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.options{
+  display: flex;
+  justify-content: space-around;
+}
+
+.option{
+  display: flex;
+}
