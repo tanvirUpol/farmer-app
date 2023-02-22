@@ -6,12 +6,12 @@ const FormQuestions = ({question}) => {
                 <div className="options">
                     <div className="option">
                       <input type="radio" id="yes" name={question} value="yes"/>
-                      <label htmlFor="yes">হ্যাঁ</label>
+                      <label htmlFor={question}>হ্যাঁ</label>
                     </div>
 
                     <div className="option">
                       <input type="radio" id="no" name={question} value="no"/>
-                      <label htmlFor="no">না</label>
+                      <label htmlFor={question}>না</label>
                     </div>
                 </div>
     </div>

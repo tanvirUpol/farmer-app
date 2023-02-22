@@ -1,7 +1,7 @@
 import logout from '../contents/logout.svg'
-import camera_img from '../contents/Take a Picture.svg'
+import camera_img from '../contents/TakePicture.svg'
 import vegy_bag from '../contents/vegy.svg'
-import carrot_img from '../contents/docs-carrot.svg'
+import carrot_img from '../contents/docsCarrot.svg'
 import HomeSection from "../components/HomeSection"
 
 const Home = () => {

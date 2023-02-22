@@ -4,7 +4,7 @@ import FormNav from "../components/FormNav";
 import FormQuestions from "../components/FormQuestions";
 import arrow from '../contents/arrow.svg'
 import cross from '../contents/cross.svg'
-import image_icon from '../contents/Image-icon.svg'
+import image_icon from '../contents/imageIcon.svg'
 import done_image from '../contents/done.svg'
 import vegData from '../data/vegData.json'
 
