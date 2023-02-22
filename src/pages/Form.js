@@ -158,7 +158,7 @@ const Form = () => {
       <div>
          <FormNav title='সফলভাবে জমা দেওয়া হয়েছে!' />
          <div className="container">
-          <div className="done-seciton">
+          <div className="done-section">
             <img src={done_image} alt="" />
             <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
           </div>

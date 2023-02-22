@@ -263,3 +263,18 @@ textarea{
   accent-color: green;
   transform: scale(1.8);
 }
+
+
+/* page four */
+
+.done-section{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ height: 60vh;
+ gap: 20px;
+ font-weight: 700;
+ font-size: 18px;
+color: #279636;
+}
