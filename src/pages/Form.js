@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import FormNav from "../components/FormNav";
 import FormQuestions from "../components/FormQuestions";
 import arrow from '../contents/arrow.svg'
 import cross from '../contents/cross.svg'
 import image_icon from '../contents/Image-icon.svg'
+import done_image from '../contents/done.svg'
 import vegData from '../data/vegData.json'
 
 const Form = () => {
+  const navigate = useNavigate()
    
   const [page, setPage] = useState(1);
   const [vegetable, setVegetable] = useState('');
@@ -150,10 +153,18 @@ const Form = () => {
   };
 
   const renderPageFour = () => {
+    
     return (
       <div>
-         <FormNav title='সবজির মান পরীক্ষা করুন' />
+         <FormNav title='সফলভাবে জমা দেওয়া হয়েছে!' />
          <div className="container">
+          <div className="done-seciton">
+            <img src={done_image} alt="" />
+            <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
+          </div>
+
+          <button className="btn-next" onClick={() => window.location.reload(false)}>নতুন সবজি যোগ করুন</button>
+          <button className="btn-prev" onClick={() => navigate('/')}>হোমে ফিরে যান</button>
             
          </div>
       </div>
