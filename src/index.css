@@ -221,6 +221,12 @@ textarea{
   margin-bottom: 5px;
 }
 
+.question p{
+  font-size: 14px;
+  color: #484848;
+  margin-bottom: 15px;
+}
+
 .options{
   display: flex;
   justify-content: space-around;
@@ -228,4 +234,11 @@ textarea{
 
 .option{
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.option input{
+  margin: 0;
 }

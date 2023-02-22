@@ -142,13 +142,13 @@ const Form = () => {
 
                 <div className="options">
                     <div className="option">
-                      <input type="radio" id="yes" name="yes" value="yes"/>
-                      <label for="yes">Yes</label>
+                      <input type="radio" id="yes" name="question1" value="yes"/>
+                      <label htmlFor="yes">হ্যাঁ</label>
                     </div>
 
                     <div className="option">
-                      <input type="radio" id="no" name="no" value="no"/>
-                      <label for="no">No</label>
+                      <input type="radio" id="no" name="question1" value="no"/>
+                      <label htmlFor="no">না</label>
                     </div>
                 </div>
                 
