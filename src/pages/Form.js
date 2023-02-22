@@ -64,7 +64,7 @@ const Form = () => {
     console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div className="form">
-        <FormNav firstPage={page} arrow={arrow} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
+        <FormNav page={page} arrow={arrow} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
 
         <div className=" custom-container">
             <form onSubmit={handleNextPage}>
@@ -110,7 +110,7 @@ const Form = () => {
     console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div>
-        <FormNav handlePrevPage={handlePrevPage} arrow={arrow} title='সবজির বিবরণ যুক্ত করুন' />
+        <FormNav page={page} arrow={arrow} handlePrevPage={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
        <div className="custom-container">
         <form onSubmit={handleNextPage}>
       
@@ -133,11 +133,9 @@ const Form = () => {
 
   const renderPageThree = () => {
     localStorage.setItem("pageNum",page)
-    console.log('current page',page);
-    console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div>
-         <FormNav handlePrevPage={handlePrevPage} arrow={arrow} title='সবজির মান পরীক্ষা করুন' />
+         <FormNav page={page} arrow={arrow} handlePrevPage={handlePrevPage} title='সবজির মান পরীক্ষা করুন' />
          <div className="custom-container">
             <form onSubmit={handleSubmit}>
               <div className="questions">
@@ -162,7 +160,7 @@ const Form = () => {
     
     return (
       <div>
-         <FormNav title='সফলভাবে জমা দেওয়া হয়েছে!' />
+         <FormNav page={page} arrow={arrow} title='সফলভাবে জমা দেওয়া হয়েছে!' />
          <div className="custom-container">
           <div className="done-section">
             <img src={done_image} alt="" />
