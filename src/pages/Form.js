@@ -11,7 +11,7 @@ import vegData from '../data/vegData.json'
 const Form = () => {
   const navigate = useNavigate()
    
-  const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')));
+  const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum'))?  parseInt(localStorage.getItem('pageNum')):1);
   const [vegetable, setVegetable] = useState('');
   const [, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
