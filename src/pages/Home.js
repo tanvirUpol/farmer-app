@@ -8,6 +8,19 @@ const Home = () => {
 
     return (
         <div className='home container'>
+            {/* <div className="mt-4 row justify-content-between">
+                <p  className="m-0 col-2">স্বাগতম</p>
+                <div className="col-2 "><img className=" d-block" src={logout} alt="Your SVG" /></div>
+            </div>
+            <div className="row justify-content-between">
+                <div className="col-4 " ><img className="ms-3 d-block" src={camera_img} alt="Your SVG" /></div>
+                <div className="col-8">
+                    <p className="font-size-12 fw-bold">সবজির তথ্য আপলোড করুন</p>
+                    <button onClick={()=>navigate('/form')} >তথ্য আপলোড </button>
+                </div>
+            </div> */}
+
+
             <div className="top-bar">
                 <p className="">স্বাগতম</p>
                 <div className=""><img className="" src={logout} alt="Your SVG" /></div>
