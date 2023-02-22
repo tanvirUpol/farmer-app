@@ -64,9 +64,9 @@ const Form = () => {
     console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div className="form">
-        <FormNav arrow={arrow} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
+        <FormNav firstPage={page} arrow={arrow} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
 
-        <div className="container">
+        <div className=" custom-container">
             <form onSubmit={handleNextPage}>
 
                 <div className="select-container">
@@ -110,32 +110,19 @@ const Form = () => {
     console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div>
-        <FormNav title='সবজির বিবরণ যুক্ত করুন' />
-       <div className="container">
+        <FormNav handlePrevPage={handlePrevPage} arrow={arrow} title='সবজির বিবরণ যুক্ত করুন' />
+       <div className="custom-container">
         <form onSubmit={handleNextPage}>
-        <div className="form-input">
-          <label>
-            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} className="form-control" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
-          </label>
-        </div>
-        <div className="form-input">
-          
-          <label>
-            <input type="text" value={width} onChange={(e)=>seWidth(e.target.value)} className="form-control" id="width" placeholder="সবজির প্রস্থ লেখুন"/>
-          </label>
-        </div>
-        <div className="form-input">
-          
-          <label>
-            <input type="text" value={weight} onChange={(e)=>setWeight(e.target.value)} className="form-control" id="weight" placeholder="সবজির ওজন লেখুন"/>
-          </label>
-        </div>
+      
+            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
 
-        <div className="form-input">
-          <label>
+            <input type="text" value={width} onChange={(e)=>seWidth(e.target.value)} className="form-control" id="width" placeholder="সবজির প্রস্থ লেখুন"/>  
+
+            <input type="text" value={weight} onChange={(e)=>setWeight(e.target.value)} className="form-control" id="weight" placeholder="সবজির ওজন লেখুন"/>
+
             <textarea className="form-control" value={extraInfo} onChange={(e)=>setExtraInfo(e.target.value)} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
-          </label>
-        </div>
+     
+       
           <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
           <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
         </form>
@@ -150,8 +137,8 @@ const Form = () => {
     console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div>
-         <FormNav title='সবজির মান পরীক্ষা করুন' />
-         <div className="container">
+         <FormNav handlePrevPage={handlePrevPage} arrow={arrow} title='সবজির মান পরীক্ষা করুন' />
+         <div className="custom-container">
             <form onSubmit={handleSubmit}>
               <div className="questions">
                 <FormQuestions question="ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?" />
@@ -176,14 +163,14 @@ const Form = () => {
     return (
       <div>
          <FormNav title='সফলভাবে জমা দেওয়া হয়েছে!' />
-         <div className="container">
+         <div className="custom-container">
           <div className="done-section">
             <img src={done_image} alt="" />
             <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
           </div>
 
           <button className="btn-next" onClick={handleRedirect}>নতুন সবজি যোগ করুন</button>
-          <button className="btn-prev" onClick={() => navigate('/')}>হোমে ফিরে যান</button>
+          <button className="btn-prev" onClick={() => {localStorage.setItem("pageNum",1); navigate('/')}}>হোমে ফিরে যান</button>
             
          </div>
       </div>

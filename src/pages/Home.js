@@ -7,7 +7,7 @@ import HomeSection from "../components/HomeSection"
 const Home = () => {
 
     return (
-        <div className='home container'>
+        <div className='home custom-container'>
             {/* <div className="mt-4 row justify-content-between">
                 <p  className="m-0 col-2">স্বাগতম</p>
                 <div className="col-2 "><img className=" d-block" src={logout} alt="Your SVG" /></div>
