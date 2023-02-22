@@ -11,7 +11,7 @@ import vegData from '../data/vegData.json'
 const Form = () => {
   const navigate = useNavigate()
    
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')));
   const [vegetable, setVegetable] = useState('');
   const [, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -24,11 +24,14 @@ const Form = () => {
   const handleNextPage = (e) => {
     e.preventDefault();
     setPage(page + 1);
+    // localStorage.setItem("pageNum",page)
+
   };
 
   const handlePrevPage = (e) => {
     e.preventDefault();
     setPage(page - 1);
+    // localStorage.setItem("pageNum",page)
   };
 
   function handleFileUpload(e) {
@@ -44,11 +47,21 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPage(page + 1);
-    // console.log('Submitted:',  length,vegetable,image.name);
-    // Do something with the form data, like submit it to a server
+    
   };
 
+
+  const handleRedirect = () => {
+    localStorage.setItem("pageNum",1)
+    window.location.reload(false)
+    
+  };
+
+
   const renderPageOne = () => {
+    localStorage.setItem("pageNum",page)
+    console.log('current page',page);
+    console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div className="form">
         <FormNav arrow={arrow} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
@@ -92,6 +105,9 @@ const Form = () => {
   };
 
   const renderPageTwo = () => {
+    localStorage.setItem("pageNum",page)
+    console.log('current page',page);
+    console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div>
         <FormNav title='সবজির বিবরণ যুক্ত করুন' />
@@ -129,6 +145,9 @@ const Form = () => {
   };
 
   const renderPageThree = () => {
+    localStorage.setItem("pageNum",page)
+    console.log('current page',page);
+    console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div>
          <FormNav title='সবজির মান পরীক্ষা করুন' />
@@ -163,7 +182,7 @@ const Form = () => {
             <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
           </div>
 
-          <button className="btn-next" onClick={() => window.location.reload(false)}>নতুন সবজি যোগ করুন</button>
+          <button className="btn-next" onClick={handleRedirect}>নতুন সবজি যোগ করুন</button>
           <button className="btn-prev" onClick={() => navigate('/')}>হোমে ফিরে যান</button>
             
          </div>

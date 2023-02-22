@@ -5,7 +5,7 @@ const HomeSection = ({img,path,text,btnText}) => {
     const navigate = useNavigate()
     
     return (
-        <div className="hero">
+        <div className="hero" onClick={() => navigate(path)}  >
             <div className="hero-img" >
                 <img className="" src={img} alt="" />
             </div>
