@@ -1,21 +1,25 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import FormNav from "../components/FormNav";
+import FormQuestions from "../components/FormQuestions";
 import arrow from '../contents/arrow.svg'
 import cross from '../contents/cross.svg'
 import image_icon from '../contents/Image-icon.svg'
+import done_image from '../contents/done.svg'
 import vegData from '../data/vegData.json'
 
 const Form = () => {
+  const navigate = useNavigate()
    
   const [page, setPage] = useState(1);
   const [vegetable, setVegetable] = useState('');
-  const [image, setImage] = useState(null);
+  const [, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [length, setLength] = useState('');
   const [width, seWidth] = useState('');
   const [weight, setWeight] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
-  const [phone, setPhone] = useState('')
+ 
 
   const handleNextPage = (e) => {
     e.preventDefault();
@@ -39,7 +43,8 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted:',  length, phone,vegetable,image.name);
+    setPage(page + 1);
+    // console.log('Submitted:',  length,vegetable,image.name);
     // Do something with the form data, like submit it to a server
   };
 
@@ -129,36 +134,39 @@ const Form = () => {
          <FormNav title='সবজির মান পরীক্ষা করুন' />
          <div className="container">
             <form onSubmit={handleSubmit}>
-
-              <div className="question">
-                <p>ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?</p>
-
-                <div className="options">
-                    <div className="option">
-                      <input type="radio" id="yes" name="question1" value="yes"/>
-                      <label htmlFor="yes">হ্যাঁ</label>
-                    </div>
-
-                    <div className="option">
-                      <input type="radio" id="no" name="question1" value="no"/>
-                      <label htmlFor="no">না</label>
-                    </div>
-                </div>
-                
-                
+              <div className="questions">
+                <FormQuestions question="ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?" />
+                <FormQuestions question="ফুলের গায়ে কোন পোকামাকড় আছে কি?" />
+                <FormQuestions question="ফুলের গায়ে কোন রোগাক্রান্ত এবং ভাঙ্গা আছে কি?" />
 
               </div>
+              
             
 
-              <label>
-                Phone:
-                <input type="tel" value={phone} onChange={(e)=>setPhone(e.target.value)} />
-              </label>
-              <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
+              <button className="btn-next" type="submit">জমা দিন </button>
               <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
             </form>
          </div>
         
+      </div>
+    );
+  };
+
+  const renderPageFour = () => {
+    
+    return (
+      <div>
+         <FormNav title='সফলভাবে জমা দেওয়া হয়েছে!' />
+         <div className="container">
+          <div className="done-seciton">
+            <img src={done_image} alt="" />
+            <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
+          </div>
+
+          <button className="btn-next" onClick={() => window.location.reload(false)}>নতুন সবজি যোগ করুন</button>
+          <button className="btn-prev" onClick={() => navigate('/')}>হোমে ফিরে যান</button>
+            
+         </div>
       </div>
     );
   };
@@ -172,6 +180,9 @@ const Form = () => {
 
     case 3:
       return renderPageThree();
+
+    case 4:
+      return renderPageFour();
 
     default:
       return renderPageOne();
