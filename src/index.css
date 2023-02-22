@@ -1,3 +1,5 @@
+
+
 *{
   padding: 0;
   margin: 0;
@@ -216,9 +218,24 @@ textarea{
 
 /* form sectiom 3 */
 
+.questions{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .question{
   text-align: center;
   margin-bottom: 5px;
+  background: #F4F4F4;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 28px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .question p{
@@ -229,16 +246,20 @@ textarea{
 
 .options{
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+  gap: 3rem;
+  width: 100%;
 }
 
 .option{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .option input{
   margin: 0;
+  accent-color: green;
+  transform: scale(1.8);
 }
