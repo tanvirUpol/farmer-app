@@ -118,16 +118,20 @@ form{
   justify-content: flex-start; 
   align-items: center;
   color: #FFFFFF;
-  /* width: 100%; */
   text-align: center;
+  position: relative;
 }
 
 .title-alone{
   text-align: center;
   color: #FFFFFF;
 }
-.top-nav .custom-container img{
-  margin-right: 75px
+.top-nav .custom-container p{
+  /* margin-right: 75px */
+  width: 80%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .form select{
@@ -282,3 +286,11 @@ textarea{
  font-size: 18px;
 color: #279636;
 }
+
+/* vegy-info */
+
+.vegyFeatures td{
+  font-size: 12px;
+  font-weight: 600;
+}
+

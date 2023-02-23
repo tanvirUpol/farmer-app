@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
+import arrow from "../contents/arrow.svg"
 
-const TopNav = ({arrow,title,bool,path}) => {
+const TopNav = ({title,bool,path}) => {
   const navigate = useNavigate()
   return (
     <div className="top-nav">

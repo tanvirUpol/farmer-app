@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import TopNav from "../components/TopNav";
 import FormQuestions from "../components/FormQuestions";
-import arrow from '../contents/arrow.svg'
 import cross from '../contents/cross.svg'
 import image_icon from '../contents/imageIcon.svg'
 import done_image from '../contents/done.svg'
@@ -62,7 +61,7 @@ const Form = () => {
     localStorage.setItem("pageNum",page)
     return (
       <div className="form">
-        <TopNav bool={true} arrow={arrow} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
+        <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
 
         <div className=" custom-container">
             <form onSubmit={handleNextPage}>
@@ -107,15 +106,15 @@ const Form = () => {
    
     return (
       <div>
-        <TopNav bool={false} arrow={arrow} path={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
+        <TopNav bool={false} path={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
        <div className="custom-container">
         <form onSubmit={handleNextPage}>
       
-            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} className="form-control" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
+            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} className="form-control py-3" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
 
-            <input type="text" value={width} onChange={(e)=>seWidth(e.target.value)} className="form-control" id="width" placeholder="সবজির প্রস্থ লেখুন"/>  
+            <input type="text" value={width} onChange={(e)=>seWidth(e.target.value)} className="form-control py-3" id="width" placeholder="সবজির প্রস্থ লেখুন"/>  
 
-            <input type="text" value={weight} onChange={(e)=>setWeight(e.target.value)} className="form-control" id="weight" placeholder="সবজির ওজন লেখুন"/>
+            <input type="text" value={weight} onChange={(e)=>setWeight(e.target.value)} className="form-control py-3" id="weight" placeholder="সবজির ওজন লেখুন"/>
 
             <textarea className="form-control" value={extraInfo} onChange={(e)=>setExtraInfo(e.target.value)} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
      
@@ -132,7 +131,7 @@ const Form = () => {
     localStorage.setItem("pageNum",page)
     return (
       <div>
-         <TopNav bool={false} arrow={arrow} path={handlePrevPage}  title='সবজির মান পরীক্ষা করুন' />
+         <TopNav bool={false}  path={handlePrevPage}  title='সবজির মান পরীক্ষা করুন' />
          <div className="custom-container">
             <form onSubmit={handleSubmit}>
               <div className="questions">
@@ -157,7 +156,7 @@ const Form = () => {
     
     return (
       <div>
-         <TopNav bool={true} arrow={arrow} path={null} title='সফলভাবে জমা দেওয়া হয়েছে!' />
+         <TopNav bool={true} path={null} title='সফলভাবে জমা দেওয়া হয়েছে!' />
          <div className="custom-container">
           <div className="done-section">
             <img src={done_image} alt="" />

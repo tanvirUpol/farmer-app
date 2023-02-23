@@ -1,12 +1,22 @@
+import { Link } from "react-router-dom";
 import TopNav from "../components/TopNav"
-import arrow from "../contents/arrow.svg"
+import vegData from '../data/vegData.json'
+
+
 const VegyInfoList = () => {
+  console.log(vegData);
   return (
     <div>
-      <TopNav bool={true} arrow={arrow} path={'/'} title='সব সবজির তথ্য তালিকা' />  
-      <div className="custom-container">
-           <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-           <button className="btn btn-outline-success" type="submit">Search</button>
+      <TopNav bool={true}  path={'/'} title='সব সবজির তথ্য তালিকা' />  
+      <div className="custom-container mt-3">
+           <input className="form-control me-2" type="search" placeholder="সার্চ করুন..." aria-label="Search"/>
+           <div className="vegy_list list-group">
+              {vegData.map(item =>(
+                <Link className="list-group-item list-group-item-action text-center" to={`/infoList/${item.code}`} key={item.code} >
+                    {item.name}
+                </Link>
+              ) )}
+           </div>
       </div>
     </div>
   )
