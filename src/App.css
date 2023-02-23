@@ -1,3 +1,78 @@
 * {
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: 'Baloo Da 2', cursive;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}
+
+/* .title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    color: #181725;
+} */
+
+.input-login-number {
+    border: none;
+    background-color: #F5F6FA;
+    height: 46px;
+    width: 287px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+}
+
+.input-login-number:focus,
+.input-otp:focus {
+    outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.btn-login {
+    height: 46px;
+    width: 293px;
+    border-radius: 10px;
+    background-color: #7CC259;
+    border: none;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    color: #181725;
+}
+
+.input-otp {
+    border: none;
+    background-color: #F5F6FA;
+    height: 44px;
+    width: 44px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #7CC259;
+    padding: 1rem;
+}
+
+.otp-text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #7B7890;
+}
+
+.otp-subtext {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #7CC259;
 }

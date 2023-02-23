@@ -2,6 +2,7 @@
     {
         "code": 2900592,
         "name": "ফুলকপি",
+        "image": "https://i.ibb.co/kq71VRg/fulkopi.png",
         "height": "২২-৩০ সে মি*",
         "width": "২০-২৮ সে মি",
         "color": "সাদা ক্রিমি ভাব থাকে",
@@ -14,6 +15,7 @@
     {
         "code": 2900936,
         "name": "বাঁধাকপি",
+        "image": "https://i.ibb.co/wKDsGvw/badhakopi.png",
         "height": "১৫-২০ সে মি*",
         "width": "১৫+ সে মি",
         "color": "হালকা সবুজ",
@@ -26,6 +28,7 @@
     {
         "code": 2901624,
         "name": "কাঁচা পেঁপে",
+        "image": "https://i.ibb.co/7jKTbpf/pepe.png",
         "height": "৮-১০ সে মি",
         "width": "৬-৮ সে মি",
         "color": "গাঢ় সবুজ",
@@ -38,6 +41,7 @@
     {
         "code": 2901604,
         "name": "লাউ",
+        "image": "https://i.ibb.co/WxYhMwN/lau.png",
         "height": "৪০-৪৫ সে মি*",
         "width": "৯-১০ সে মি",
         "color": "হালকা সবুজ",
@@ -50,6 +54,7 @@
     {
         "code": 2901735,
         "name": "টমেটো (লাল)",
+        "image": "https://i.ibb.co/Gp97ygW/tomato.jpg",
         "height": "৪-১০ সে মি*",
         "width": "৩-৪ সে মি",
         "color": "গাঢ় লাল",
@@ -61,6 +66,7 @@
     },
     {
         "code": 2901605,
+        "image": "https://i.ibb.co/CM6G9k3/kumra.png",
         "name": "চাল কুমড়া",
         "height": "২০-২৫ সে মি",
         "width": "১০-১৫ সে মি",
