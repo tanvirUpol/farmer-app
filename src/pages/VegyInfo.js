@@ -19,14 +19,14 @@ const VegyInfo = () => {
   return (
     <div className="vegyInfo">
       <TopNav bool={true}  path={'/infoList'} title={`আদর্শ ${vegetable[0].name}`} />  
-      <div className="custom-container">
-        <div className="vegyimage d-flex flex-column justify-content-center align-items-center">
+      <div className="custom-container mt-3">
+        <div className="vegyimage d-flex flex-column justify-content-center align-items-center mb-2">
           <img src="https://via.placeholder.com/150x100/" alt="" />
-          <p className="fw-bold vegy-title" >{vegetable[0].name}</p>
+          <p className="mt-2 fw-bold vegy-title" >{vegetable[0].name}</p>
         </div>
         <div className="vegyFeatures">
-        <p className="fw-bold fs-6 vegy-title" >বৈশিষ্ট্যাবলী</p>
-        <table className="table text-center table-bordered rounded">
+        <p className="fw-bold fs-6 vegy-title mb-2" >বৈশিষ্ট্যাবলী</p>
+        <table className="table text-center table-bordered -3">
             <thead>
               <tr>
                 <th scope="col">দৈর্ঘ্য</th>
@@ -44,6 +44,18 @@ const VegyInfo = () => {
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div className="collect-info">
+        <p className="fw-bold fs-6 vegy-title mb-2" >সংগ্রহের দিকনির্দেশনা</p>
+          <ul>
+            <li>{vegetable[0].freshness}</li>
+            <li>{vegetable[0].fruit_selection}</li>
+            <li>{vegetable[0].maturity}</li>
+            <li>{vegetable[0].pests_and_diseases}</li>
+          </ul>
+
+
         </div>
       </div>
     </div>
