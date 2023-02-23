@@ -294,3 +294,11 @@ color: #279636;
   font-weight: 600;
 }
 
+.vegyFeatures th, .vegy-title{
+  color: #279636;
+}
+
+li{
+  font-size: 14px;
+  margin-bottom: 6px;
+}
