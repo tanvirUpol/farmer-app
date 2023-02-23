@@ -8,7 +8,7 @@
 
 
 
-.container{
+.custom-container{
   margin: 0 18px;
 }
 
@@ -106,28 +106,32 @@
 /* form-section */
 
 form{
-  margin-top: 60px;
+  margin-top: 10px;
 }
-.form-nav{
+.top-nav{
   background-color: #7CC259;
   padding: 18px 0;
 }
 
-.form-nav .container{
+.top-nav .custom-container{
   display: flex;
   justify-content: flex-start; 
   align-items: center;
   color: #FFFFFF;
-  /* width: 100%; */
   text-align: center;
+  position: relative;
 }
 
 .title-alone{
   text-align: center;
   color: #FFFFFF;
 }
-.form-nav .container img{
-  margin-right: 60px
+.top-nav .custom-container p{
+  /* margin-right: 75px */
+  width: 80%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .form select{
@@ -135,6 +139,10 @@ form{
   padding: 15px;
   border: 1px solid #595959;
   border-radius: 5px;
+}
+
+form input{
+  width: 100%;
 }
 
 .upload-btn{
@@ -180,7 +188,7 @@ form{
 }
 
 .btn-next{
-  margin-top: 50px;
+  margin-top: 30px;
   width: 100%;
   padding: 15px;
   font-weight: 600;
@@ -263,3 +271,26 @@ textarea{
   accent-color: green;
   transform: scale(1.8);
 }
+
+
+/* page four */
+
+.done-section{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ height: 60vh;
+ gap: 20px;
+ font-weight: 700;
+ font-size: 18px;
+color: #279636;
+}
+
+/* vegy-info */
+
+.vegyFeatures td{
+  font-size: 12px;
+  font-weight: 600;
+}
+

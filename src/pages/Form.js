@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-import FormNav from "../components/FormNav";
+import TopNav from "../components/TopNav";
 import FormQuestions from "../components/FormQuestions";
-import arrow from '../contents/arrow.svg'
 import cross from '../contents/cross.svg'
-import image_icon from '../contents/Image-icon.svg'
+import image_icon from '../contents/imageIcon.svg'
 import done_image from '../contents/done.svg'
 import vegData from '../data/vegData.json'
 
 const Form = () => {
   const navigate = useNavigate()
    
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum'))?  parseInt(localStorage.getItem('pageNum')):1);
   const [vegetable, setVegetable] = useState('');
   const [, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -24,11 +23,14 @@ const Form = () => {
   const handleNextPage = (e) => {
     e.preventDefault();
     setPage(page + 1);
+    // localStorage.setItem("pageNum",page)
+
   };
 
   const handlePrevPage = (e) => {
     e.preventDefault();
     setPage(page - 1);
+    // localStorage.setItem("pageNum",page)
   };
 
   function handleFileUpload(e) {
@@ -44,20 +46,28 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPage(page + 1);
-    // console.log('Submitted:',  length,vegetable,image.name);
-    // Do something with the form data, like submit it to a server
+    
   };
 
+
+  const handleRedirect = () => {
+    localStorage.setItem("pageNum",1)
+    window.location.reload(false)
+    
+  };
+
+
   const renderPageOne = () => {
+    localStorage.setItem("pageNum",page)
     return (
       <div className="form">
-        <FormNav arrow={arrow} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
+        <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
 
-        <div className="container">
+        <div className=" custom-container">
             <form onSubmit={handleNextPage}>
 
                 <div className="select-container">
-                    <select value={vegetable} onChange={(e)=>setVegetable(e.target.value)}>
+                    <select className="form-select" value={vegetable} onChange={(e)=>setVegetable(e.target.value)}>
                         {vegData.map((item) => (
                         <option key={item.code} value={item.name}>{item.name}</option>
                         ))}
@@ -92,34 +102,23 @@ const Form = () => {
   };
 
   const renderPageTwo = () => {
+    localStorage.setItem("pageNum",page)
+   
     return (
       <div>
-        <FormNav title='সবজির বিবরণ যুক্ত করুন' />
-       <div className="container">
+        <TopNav bool={false} path={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
+       <div className="custom-container">
         <form onSubmit={handleNextPage}>
-        <div className="form-input">
-          <label>
-            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} className="form-control" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
-          </label>
-        </div>
-        <div className="form-input">
-          
-          <label>
-            <input type="text" value={width} onChange={(e)=>seWidth(e.target.value)} className="form-control" id="width" placeholder="সবজির প্রস্থ লেখুন"/>
-          </label>
-        </div>
-        <div className="form-input">
-          
-          <label>
-            <input type="text" value={weight} onChange={(e)=>setWeight(e.target.value)} className="form-control" id="weight" placeholder="সবজির ওজন লেখুন"/>
-          </label>
-        </div>
+      
+            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} className="form-control py-3" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
 
-        <div className="form-input">
-          <label>
+            <input type="text" value={width} onChange={(e)=>seWidth(e.target.value)} className="form-control py-3" id="width" placeholder="সবজির প্রস্থ লেখুন"/>  
+
+            <input type="text" value={weight} onChange={(e)=>setWeight(e.target.value)} className="form-control py-3" id="weight" placeholder="সবজির ওজন লেখুন"/>
+
             <textarea className="form-control" value={extraInfo} onChange={(e)=>setExtraInfo(e.target.value)} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
-          </label>
-        </div>
+     
+       
           <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
           <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
         </form>
@@ -129,10 +128,11 @@ const Form = () => {
   };
 
   const renderPageThree = () => {
+    localStorage.setItem("pageNum",page)
     return (
       <div>
-         <FormNav title='সবজির মান পরীক্ষা করুন' />
-         <div className="container">
+         <TopNav bool={false}  path={handlePrevPage}  title='সবজির মান পরীক্ষা করুন' />
+         <div className="custom-container">
             <form onSubmit={handleSubmit}>
               <div className="questions">
                 <FormQuestions question="ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?" />
@@ -156,15 +156,15 @@ const Form = () => {
     
     return (
       <div>
-         <FormNav title='সফলভাবে জমা দেওয়া হয়েছে!' />
-         <div className="container">
-          <div className="done-seciton">
+         <TopNav bool={true} path={null} title='সফলভাবে জমা দেওয়া হয়েছে!' />
+         <div className="custom-container">
+          <div className="done-section">
             <img src={done_image} alt="" />
             <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
           </div>
 
-          <button className="btn-next" onClick={() => window.location.reload(false)}>নতুন সবজি যোগ করুন</button>
-          <button className="btn-prev" onClick={() => navigate('/')}>হোমে ফিরে যান</button>
+          <button className="btn-next" onClick={handleRedirect}>নতুন সবজি যোগ করুন</button>
+          <button className="btn-prev" onClick={() => {localStorage.setItem("pageNum",1); navigate('/')}}>হোমে ফিরে যান</button>
             
          </div>
       </div>
