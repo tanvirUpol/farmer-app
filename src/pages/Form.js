@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-import FormNav from "../components/FormNav";
+import TopNav from "../components/TopNav";
 import FormQuestions from "../components/FormQuestions";
 import arrow from '../contents/arrow.svg'
 import cross from '../contents/cross.svg'
@@ -60,17 +60,15 @@ const Form = () => {
 
   const renderPageOne = () => {
     localStorage.setItem("pageNum",page)
-    console.log('current page',page);
-    console.log('saved page',localStorage.getItem('pageNum'));
     return (
       <div className="form">
-        <FormNav page={page} arrow={arrow} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
+        <TopNav bool={true} arrow={arrow} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
 
         <div className=" custom-container">
             <form onSubmit={handleNextPage}>
 
                 <div className="select-container">
-                    <select value={vegetable} onChange={(e)=>setVegetable(e.target.value)}>
+                    <select className="form-select" value={vegetable} onChange={(e)=>setVegetable(e.target.value)}>
                         {vegData.map((item) => (
                         <option key={item.code} value={item.name}>{item.name}</option>
                         ))}
@@ -106,15 +104,14 @@ const Form = () => {
 
   const renderPageTwo = () => {
     localStorage.setItem("pageNum",page)
-    console.log('current page',page);
-    console.log('saved page',localStorage.getItem('pageNum'));
+   
     return (
       <div>
-        <FormNav page={page} arrow={arrow} handlePrevPage={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
+        <TopNav bool={false} arrow={arrow} path={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
        <div className="custom-container">
         <form onSubmit={handleNextPage}>
       
-            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
+            <input type="text" value={length} onChange={(e)=>setLength(e.target.value)} className="form-control" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন"/>
 
             <input type="text" value={width} onChange={(e)=>seWidth(e.target.value)} className="form-control" id="width" placeholder="সবজির প্রস্থ লেখুন"/>  
 
@@ -135,7 +132,7 @@ const Form = () => {
     localStorage.setItem("pageNum",page)
     return (
       <div>
-         <FormNav page={page} arrow={arrow} handlePrevPage={handlePrevPage} title='সবজির মান পরীক্ষা করুন' />
+         <TopNav bool={false} arrow={arrow} path={handlePrevPage}  title='সবজির মান পরীক্ষা করুন' />
          <div className="custom-container">
             <form onSubmit={handleSubmit}>
               <div className="questions">
@@ -160,7 +157,7 @@ const Form = () => {
     
     return (
       <div>
-         <FormNav page={page} arrow={arrow} title='সফলভাবে জমা দেওয়া হয়েছে!' />
+         <TopNav bool={true} arrow={arrow} path={null} title='সফলভাবে জমা দেওয়া হয়েছে!' />
          <div className="custom-container">
           <div className="done-section">
             <img src={done_image} alt="" />

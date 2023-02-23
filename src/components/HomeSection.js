@@ -10,7 +10,7 @@ const HomeSection = ({img,path,text,btnText}) => {
                 <img className="" src={img} alt="" />
             </div>
             <div className="hero-info">
-                <p className="">{text}</p>
+                <p className="m-0">{text}</p>
                 <button onClick={() => navigate(path)} >{btnText} </button>
             </div>
         </div>

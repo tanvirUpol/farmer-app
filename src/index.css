@@ -108,12 +108,12 @@
 form{
   margin-top: 10px;
 }
-.form-nav{
+.top-nav{
   background-color: #7CC259;
   padding: 18px 0;
 }
 
-.form-nav .custom-container{
+.top-nav .custom-container{
   display: flex;
   justify-content: flex-start; 
   align-items: center;
@@ -126,8 +126,8 @@ form{
   text-align: center;
   color: #FFFFFF;
 }
-.form-nav .custom-container img{
-  margin-right: 70px
+.top-nav .custom-container img{
+  margin-right: 75px
 }
 
 .form select{
