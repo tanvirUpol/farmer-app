@@ -7,13 +7,14 @@ import image_icon from '../contents/imageIcon.svg'
 import done_image from '../contents/done.svg'
 import vegData from '../data/vegData.json'
 import { useForm } from 'react-hook-form'
+import Colors from "../components/Colors";
 
 
 const Form = () => {
   const navigate = useNavigate()
   // eslint-disable-next-line
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
+  const [vegy,setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   // eslint-disable-next-line
   const [image, setImage] = useState(null);
@@ -56,7 +57,6 @@ const Form = () => {
 
   const onSubmit = data => {
     console.log(data)
-    console.log(image)
     setPage(page + 1);
   };
 
@@ -71,6 +71,8 @@ const Form = () => {
 
   const renderPageOne = () => {
     localStorage.setItem("pageNum", page)
+
+ 
     return (
       <div>
         <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
@@ -79,7 +81,8 @@ const Form = () => {
           <form onSubmit={handleNextPage}>
 
             <div className="select-container">
-              <select className=""  {...register("vegetable", { required: true })}>
+              <select className=""  {...register("vegetable",{onChange: (e) => {setVegy(e.target.value)}, required: true })}>
+                
                 {vegData.map((item) => (
                   <option key={item.code} value={item.name}>{item.name}</option>
                 ))}
@@ -100,6 +103,8 @@ const Form = () => {
               <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
               <button ><img onClick={handleRemoveFile} src={cross} alt="" /></button>
             </div>)}
+
+            <Colors vegy={vegy} vegData={vegData} register={register} />
 
             <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
           </form>
