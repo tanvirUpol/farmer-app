@@ -134,7 +134,7 @@ form{
   transform: translateX(-50%);
 }
 
-.form select{
+form select{
   width: 100%;
   padding: 15px;
   border: 1px solid #595959;
