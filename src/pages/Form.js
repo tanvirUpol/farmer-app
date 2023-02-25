@@ -33,6 +33,20 @@ const Form = () => {
   function handleFileUpload(e) {
     setImage(e.target.files[0])
     setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+
+    // uploading image 
+    const image = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', image)
+    const url = `https://api.imgbb.com/1/upload?expiration=600&key=2533d5f3e441eb6b52c7bec740a8dd84`
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(imageData => {
+        console.log(imageData);
+      })
   }
 
   function handleRemoveFile() {
