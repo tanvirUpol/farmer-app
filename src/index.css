@@ -1,5 +1,4 @@
 
-
 *{
   padding: 0;
   margin: 0;
@@ -7,22 +6,11 @@
 }
 
 
-
 .custom-container{
   margin: 0 18px;
 }
 
-
-.home .top-bar{
-  display: flex;
-  margin-top: 18px;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .home .top-bar p{
-  font-weight: 600;
-  font-size: 18px;
   color: #279636;
 }
 
@@ -30,37 +18,13 @@
   margin-top: 30px;
 }
 
-.home .hero{
-  margin: 16px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  
-  padding: 18px 25px;
-  border-radius: 5px;
-  
-}
-
-.home .hero-info{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
 
 .home .hero-info p{
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
 
 }
 
-.home .hero-info button{
-  padding: 8px 52px;
-  
-  color: #FFFFFF;
-  border: none;
-  border-radius: 5px;
-}
 
 .hero:nth-child(1){
   background-color: #D3F2D8;
@@ -73,7 +37,6 @@
 .hero:nth-child(1) button{
   background: #7CC259;
 }
-
 
 .hero:nth-child(2){
   background-color: #E4DBEE;
@@ -99,9 +62,6 @@
 .hero:nth-child(3) button{
   background: #ECAD2F;
 }
-
-
-
 
 /* form-section */
 
@@ -189,7 +149,7 @@ form input{
 }
 
 .btn-next{
-  margin-top: 30px;
+  margin-top: 20px;
   width: 100%;
   padding: 15px;
   font-weight: 600;
@@ -242,7 +202,7 @@ textarea{
 }
 
 .question{
-  text-align: center;
+  text-align: left;
   margin-bottom: 5px;
   background: #F4F4F4;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);

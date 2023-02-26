@@ -7,13 +7,14 @@ import image_icon from '../contents/imageIcon.svg'
 import done_image from '../contents/done.svg'
 import vegData from '../data/vegData.json'
 import { useForm } from 'react-hook-form'
-import Colors from "../components/Colors";
+
 
 
 const Form = () => {
   const navigate = useNavigate()
-  // eslint-disable-next-line
-  const { register, handleSubmit, watch, formState, formState: { errors }  } = useForm();
+ 
+  const { register, handleSubmit, formState: { errors }  } = useForm();
+   // eslint-disable-next-line
   const [vegy,setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   // eslint-disable-next-line
@@ -36,18 +37,18 @@ const Form = () => {
     setPreviewUrl(URL.createObjectURL(e.target.files[0]));
 
     // uploading image 
-    // const image = e.target.files[0]
-    // const formData = new FormData()
-    // formData.append('image', image)
-    // const url = `https://api.imgbb.com/1/upload?expiration=600&key=2533d5f3e441eb6b52c7bec740a8dd84`
-    // fetch(url, {
-    //   method: 'POST',
-    //   body: formData
-    // })
-    //   .then(response => response.json())
-    //   .then(imageData => {
-    //     console.log(imageData);
-    //   })
+    const image = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', image)
+    const url = `https://api.imgbb.com/1/upload?expiration=600&key=2533d5f3e441eb6b52c7bec740a8dd84`
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(imageData => {
+        console.log(imageData);
+      })
   }
 
   function handleRemoveFile() {
@@ -82,7 +83,7 @@ const Form = () => {
           <form onSubmit={handleSubmit(handleNextPage)}>
 
             <div className="select-container">
-              <select className=""   {...register("vegetable",{onChange: (e) => {setVegy(e.target.value)}, required: true })}>
+              <select   {...register("vegetable",{onChange: (e) => {setVegy(e.target.value)}, required: true })}>
                 
                 {vegData.map((item) => (
                   <option key={item.code} value={item.name}>{item.name}</option>
@@ -103,17 +104,22 @@ const Form = () => {
               
             </label>)}
             
-            {errors.image && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+            {errors.image && <span className="text-danger fw-bold m-1" >অবশ্যই একটি ছবি আপলোড করতে হবে*</span>}
 
             {previewUrl && (<div className="uploaded-image">
               <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
               <button ><img onClick={handleRemoveFile} src={cross} alt="" /></button>
+              <input name="color" type="text" {...register("color", { required: true })} id="color" placeholder="সবজির রং লেখুন" />
+            {errors.color && <span className="text-danger fw-bold m-1" >অনুগ্রহ করে সবজির রং টাইপ করুন*</span>}
             </div>)}
 
-            <Colors vegy={vegy} vegData={vegData} register={register} />
-            {errors.color && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+            
+           
 
-            <button className="btn-next"  type="submit" >পরবর্তি ধাপ</button>
+          
+
+
+            <button className="btn-next" type="submit" >পরবর্তি ধাপ</button>
           </form>
         </div>
 
@@ -130,15 +136,15 @@ const Form = () => {
         <div className="custom-container">
           <form onSubmit={handleSubmit(handleNextPage)}>
 
-            <input name="length" type="number" {...register("length", { required: true })} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
-            {errors.length && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+            <input  type="number" {...register("length", { required: true })} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
+            {errors.length && <span className="text-danger fw-bold m-1" >অনুগ্রহ করে দৈর্ঘ্য টাইপ করুন*</span>}
            
             <input type="number" {...register("width", { required: true })}  id="width" placeholder="সবজির প্রস্থ লেখুন" />
-            {errors.width && <span className="text-danger fw-bold m-1">ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+            {errors.width && <span className="text-danger fw-bold m-1">অনুগ্রহ করে প্রস্থ টাইপ করুন*</span>}
            
             <input type="number" {...register("weight", { required: true })}  id="weight" placeholder="সবজির ওজন লেখুন" />
-            {errors.weight && <span className="text-danger fw-bold m-1">ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
-            <textarea  {...register("extraInfo", { required: true })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
+            {errors.weight && <span className="text-danger fw-bold m-1">অনুগ্রহ করে ওজন টাইপ করুন*</span>}
+            <textarea  {...register("extraInfo", { required: false })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
 
             <button className="btn-next" type="submit" >পরবর্তি ধাপ</button>
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
@@ -156,9 +162,7 @@ const Form = () => {
         <div className="custom-container">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="questions">
-              <FormQuestions register={register} question="ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?" />
-              <FormQuestions register={register} question="ফুলের গায়ে কোন পোকামাকড় আছে কি?" />
-              <FormQuestions register={register} question="ফুলের গায়ে কোন রোগাক্রান্ত এবং ভাঙ্গা আছে কি?" />
+              <FormQuestions errors={errors} vegy={vegy} vegData={vegData} register={register} question="ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?" />
             </div>
             <button className="btn-next" type="submit">জমা দিন</button>
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
