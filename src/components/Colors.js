@@ -21,7 +21,7 @@ const Colors = ({vegy,vegData,register}) => {
             {colors.map((item) => (
 
                 <label style={{backgroundColor: `${Object.values(item)[0]}`}} key={Object.keys(item)[0]}  className="custom-radio" >
-                    <input hidden  type="radio" name="options" value={Object.keys(item)[0]} onClick={addBorder} {...register('color', { required: true })}/>
+                    <input hidden  type="radio" name="options" value={Object.values(item)[0]} onClick={addBorder} {...register('color', { required: true })}/>
                 </label>
                   
             ))}
