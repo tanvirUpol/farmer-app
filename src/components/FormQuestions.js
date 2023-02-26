@@ -1,9 +1,7 @@
 const FormQuestions = ({vegy,vegData, register,errors }) => {
   const selectedVegy = vegData.find(item =>  item.name===vegy )
   const questions = selectedVegy.questions
-  console.log(selectedVegy);
-  console.log(questions);
-  console.log(Object.keys(questions[1]));
+
 
   return (  <>
 
