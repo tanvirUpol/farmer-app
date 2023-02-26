@@ -15,7 +15,7 @@ const Colors = ({vegy,vegData,register}) => {
       
  
   return (
-    <div className="d-flex align-items-center justify-content-center my-4">
+    <div className="d-flex align-items-center justify-content-center mt-4">
       <span>রঙ নির্বাচন করুন: </span>  
       
         <div  className="color-options" >

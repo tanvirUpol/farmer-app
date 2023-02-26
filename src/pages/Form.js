@@ -13,7 +13,7 @@ import Colors from "../components/Colors";
 const Form = () => {
   const navigate = useNavigate()
   // eslint-disable-next-line
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState, formState: { errors }  } = useForm();
   const [vegy,setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   // eslint-disable-next-line
@@ -21,7 +21,7 @@ const Form = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
  
 
-  const handleNextPage = (e) => {
+  const handleNextPage = (val,e) => {
     e.preventDefault();
     setPage(page + 1);
   };
@@ -36,18 +36,18 @@ const Form = () => {
     setPreviewUrl(URL.createObjectURL(e.target.files[0]));
 
     // uploading image 
-    const image = e.target.files[0]
-    const formData = new FormData()
-    formData.append('image', image)
-    const url = `https://api.imgbb.com/1/upload?expiration=600&key=2533d5f3e441eb6b52c7bec740a8dd84`
-    fetch(url, {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(imageData => {
-        console.log(imageData);
-      })
+    // const image = e.target.files[0]
+    // const formData = new FormData()
+    // formData.append('image', image)
+    // const url = `https://api.imgbb.com/1/upload?expiration=600&key=2533d5f3e441eb6b52c7bec740a8dd84`
+    // fetch(url, {
+    //   method: 'POST',
+    //   body: formData
+    // })
+    //   .then(response => response.json())
+    //   .then(imageData => {
+    //     console.log(imageData);
+    //   })
   }
 
   function handleRemoveFile() {
@@ -57,6 +57,7 @@ const Form = () => {
 
   const onSubmit = data => {
     console.log(data)
+    console.log("submitted data")
     setPage(page + 1);
   };
 
@@ -78,15 +79,17 @@ const Form = () => {
         <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
 
         <div className="custom-container">
-          <form onSubmit={handleNextPage}>
+          <form onSubmit={handleSubmit(handleNextPage)}>
 
             <div className="select-container">
-              <select className=""  {...register("vegetable",{onChange: (e) => {setVegy(e.target.value)}, required: true })}>
+              <select className=""   {...register("vegetable",{onChange: (e) => {setVegy(e.target.value)}, required: true })}>
                 
                 {vegData.map((item) => (
                   <option key={item.code} value={item.name}>{item.name}</option>
                 ))}
               </select>
+              {errors.vegetable && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+           
             </div>
 
             {!previewUrl && (<label className="upload-btn">
@@ -96,8 +99,11 @@ const Form = () => {
                 <p>নতুন সবজির ছবি যুক্ত করুন</p>
               </div>
 
-              <input hidden type="file"  id="image" {...register("image", {onChange: (e) => {handleFileUpload(e)}, required: true })}  accept="image/*" />
+              <input hidden name="image" type="file"  id="image" {...register("image", {onChange: (e) => {handleFileUpload(e)}, required: true })}  accept="image/*" />
+              
             </label>)}
+            
+            {errors.image && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
 
             {previewUrl && (<div className="uploaded-image">
               <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
@@ -105,8 +111,9 @@ const Form = () => {
             </div>)}
 
             <Colors vegy={vegy} vegData={vegData} register={register} />
+            {errors.color && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
 
-            <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
+            <button className="btn-next"  type="submit" >পরবর্তি ধাপ</button>
           </form>
         </div>
 
@@ -121,17 +128,19 @@ const Form = () => {
       <div>
         <TopNav bool={false} path={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
         <div className="custom-container">
-          <form onSubmit={handleNextPage}>
+          <form onSubmit={handleSubmit(handleNextPage)}>
 
-            <input type="number" {...register("length", { required: true })} className="form-control py-3" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
+            <input name="length" type="number" {...register("length", { required: true })} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
+            {errors.length && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+           
+            <input type="number" {...register("width", { required: true })}  id="width" placeholder="সবজির প্রস্থ লেখুন" />
+            {errors.width && <span className="text-danger fw-bold m-1">ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+           
+            <input type="number" {...register("weight", { required: true })}  id="weight" placeholder="সবজির ওজন লেখুন" />
+            {errors.weight && <span className="text-danger fw-bold m-1">ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+            <textarea  {...register("extraInfo", { required: true })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
 
-            <input type="number" {...register("width", { required: true })} className="form-control py-3" id="width" placeholder="সবজির প্রস্থ লেখুন" />
-
-            <input type="number" {...register("weight", { required: true })} className="form-control py-3" id="weight" placeholder="সবজির ওজন লেখুন" />
-
-            <textarea className="form-control" {...register("extraInfo", { required: true })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
-
-            <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
+            <button className="btn-next" type="submit" >পরবর্তি ধাপ</button>
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
           </form>
         </div>
