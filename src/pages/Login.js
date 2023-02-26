@@ -142,9 +142,9 @@ const Login = () => {
 
     return (
         <section className='container'>
-            <h1 className='title mt-5 text-center'>Enter Mobile Number</h1>
+            <h1 className='fs-4 mt-5 text-center'>Enter Mobile Number</h1>
 
-            <div className="d-flex justify-content-center align-items-center mt-5">
+            <div className="d-flex justify-content-center align-items-center">
                 <form id='phone-container' onSubmit={handleSubmit(onSubmit)}>
                     <div className="">
                         <input placeholder='Mobile Number' type='number' className='input-login-number' {...register("number", { required: true })} />

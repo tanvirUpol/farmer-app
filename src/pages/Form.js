@@ -9,17 +9,13 @@ import vegData from '../data/vegData.json'
 import { useForm } from 'react-hook-form'
 import Colors from "../components/Colors";
 
-
 const Form = () => {
   const navigate = useNavigate()
-  // eslint-disable-next-line
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [vegy,setVegy] = useState(vegData[0].name)
+  const { register, handleSubmit, formState: {errors} } = useForm();
+  const [vegy, setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
-  // eslint-disable-next-line
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
- 
 
   const handleNextPage = (e) => {
     e.preventDefault();
@@ -34,9 +30,19 @@ const Form = () => {
   function handleFileUpload(e) {
     setImage(e.target.files[0])
     setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+  }
+
+  function handleRemoveFile() {
+    setImage(null);
+    setPreviewUrl(null);
+  }
+
+  const onSubmit = data => {
+    setPage(page + 1);
+    console.log(data)
 
     // uploading image 
-    const image = e.target.files[0]
+    // const image = e.target.files[0]
     const formData = new FormData()
     formData.append('image', image)
     const url = `https://api.imgbb.com/1/upload?expiration=600&key=2533d5f3e441eb6b52c7bec740a8dd84`
@@ -48,16 +54,6 @@ const Form = () => {
       .then(imageData => {
         console.log(imageData);
       })
-  }
-
-  function handleRemoveFile() {
-    setImage(null);
-    setPreviewUrl(null);
-  }
-
-  const onSubmit = data => {
-    console.log(data)
-    setPage(page + 1);
   };
 
   const handleRedirect = () => {
@@ -66,27 +62,24 @@ const Form = () => {
 
   };
 
-  
-
-
   const renderPageOne = () => {
+
     localStorage.setItem("pageNum", page)
 
- 
     return (
       <div>
-        <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
+        <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন' />
 
         <div className="custom-container">
           <form onSubmit={handleNextPage}>
-
             <div className="select-container">
-              <select className=""  {...register("vegetable",{onChange: (e) => {setVegy(e.target.value)}, required: true })}>
-                
-                {vegData.map((item) => (
-                  <option key={item.code} value={item.name}>{item.name}</option>
-                ))}
+              <select className="" {...register("vegetable", { onChange: (e) => { setVegy(e.target.value) }, required: true })}>
+                {
+                  vegData.map((item) => (
+                    <option key={item.code} value={item.name}>{item.name}</option>
+                  ))}
               </select>
+              {errors.vegetable && <p>Please Select Vegetable</p>}
             </div>
 
             {!previewUrl && (<label className="upload-btn">
@@ -96,25 +89,28 @@ const Form = () => {
                 <p>নতুন সবজির ছবি যুক্ত করুন</p>
               </div>
 
-              <input hidden type="file"  id="image" {...register("image", {onChange: (e) => {handleFileUpload(e)}, required: true })}  accept="image/*" />
+              <input hidden type="file" id="image" {...register("image", { onChange: (e) => { handleFileUpload(e) }, required: true })} accept="image/*" />
+              {errors.image && <p>Please Select Image</p>}
             </label>)}
 
-            {previewUrl && (<div className="uploaded-image">
-              <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
-              <button ><img onClick={handleRemoveFile} src={cross} alt="" /></button>
-            </div>)}
+            {
+              previewUrl && (<div className="uploaded-image">
+                <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
+                <button><img onClick={handleRemoveFile} src={cross} alt="remove" /></button>
+              </div>
+              )}
 
             <Colors vegy={vegy} vegData={vegData} register={register} />
 
             <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
           </form>
         </div>
-
       </div>
     );
   };
 
   const renderPageTwo = () => {
+
     localStorage.setItem("pageNum", page)
 
     return (
@@ -140,7 +136,9 @@ const Form = () => {
   };
 
   const renderPageThree = () => {
+
     localStorage.setItem("pageNum", page)
+
     return (
       <div>
         <TopNav bool={false} path={handlePrevPage} title='সবজির মান পরীক্ষা করুন' />
@@ -155,13 +153,14 @@ const Form = () => {
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
           </form>
         </div>
-
       </div>
     );
   };
 
   const renderPageFour = () => {
+
     localStorage.setItem("pageNum", page)
+
     return (
       <div>
         <TopNav bool={true} path={null} title='সফলভাবে জমা দেওয়া হয়েছে!' />
@@ -170,10 +169,8 @@ const Form = () => {
             <img src={done_image} alt="success" />
             <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
           </div>
-
           <button className="btn-next" onClick={handleRedirect}>নতুন সবজি যোগ করুন</button>
           <button className="btn-prev" onClick={() => { localStorage.setItem("pageNum", 1); navigate('/') }}>হোমে ফিরে যান</button>
-
         </div>
       </div>
     );
