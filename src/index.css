@@ -172,7 +172,8 @@ form input{
 
 .up-image{
   margin-top: 50px;
-  width: 100%;
+  width: 340px;
+  height: 250px;
 }
 
 .uploaded-image {
@@ -184,7 +185,7 @@ form input{
   top: 60px;
   right: 10px;
   border: none;
-  background-color: transparent;
+  background-color: #20202034;
 }
 
 .btn-next{
@@ -212,16 +213,24 @@ form input{
 
 input{
   width: 100%;
-  padding: 18px 15px;
-  margin-bottom: 16px;
+  padding: 12px;
+  margin-top: 16px;
   border: 1px solid #BCBCBC;
   border-radius: 5px;
+  font-size: 14px;
 }
+
 
 textarea{
   width: 100%;
   padding: 10px;
-  height: 150px;
+  height: 100px;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.text-danger{
+  font-size: 12px;
 }
 
 /* form sectiom 3 */
@@ -332,3 +341,6 @@ li{
 }
 
 
+.input-otp{
+  margin: 0;
+}

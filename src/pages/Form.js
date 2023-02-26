@@ -11,13 +11,15 @@ import Colors from "../components/Colors";
 
 const Form = () => {
   const navigate = useNavigate()
-  const { register, handleSubmit, formState: {errors} } = useForm();
+  // eslint-disable-next-line
+  const { register, handleSubmit, watch, formState, formState: { errors } } = useForm();
   const [vegy, setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
-  const handleNextPage = (e) => {
+
+  const handleNextPage = (val, e) => {
     e.preventDefault();
     setPage(page + 1);
   };
@@ -40,7 +42,7 @@ const Form = () => {
   const onSubmit = data => {
     setPage(page + 1);
     console.log(data)
-
+    console.log("submitted data")
     // uploading image 
     // const image = e.target.files[0]
     const formData = new FormData()
@@ -59,27 +61,27 @@ const Form = () => {
   const handleRedirect = () => {
     localStorage.setItem("pageNum", 1)
     window.location.reload(false)
-
   };
 
   const renderPageOne = () => {
-
     localStorage.setItem("pageNum", page)
 
     return (
       <div>
-        <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন' />
+        <TopNav bool={true} path={'/'} title='সবজির নাম এবং ছবি যুক্ত করুন  ' />
 
         <div className="custom-container">
-          <form onSubmit={handleNextPage}>
+          <form onSubmit={handleSubmit(handleNextPage)}>
+
             <div className="select-container">
-              <select className="" {...register("vegetable", { onChange: (e) => { setVegy(e.target.value) }, required: true })}>
-                {
-                  vegData.map((item) => (
-                    <option key={item.code} value={item.name}>{item.name}</option>
-                  ))}
+              <select className=""   {...register("vegetable", { onChange: (e) => { setVegy(e.target.value) }, required: true })}>
+
+                {vegData.map((item) => (
+                  <option key={item.code} value={item.name}>{item.name}</option>
+                ))}
               </select>
-              {errors.vegetable && <p>Please Select Vegetable</p>}
+              {errors.vegetable && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+
             </div>
 
             {!previewUrl && (<label className="upload-btn">
@@ -89,45 +91,48 @@ const Form = () => {
                 <p>নতুন সবজির ছবি যুক্ত করুন</p>
               </div>
 
-              <input hidden type="file" id="image" {...register("image", { onChange: (e) => { handleFileUpload(e) }, required: true })} accept="image/*" />
-              {errors.image && <p>Please Select Image</p>}
+              <input hidden name="image" type="file" id="image" {...register("image", { onChange: (e) => { handleFileUpload(e) }, required: true })} accept="image/*" />
+
             </label>)}
 
-            {
-              previewUrl && (<div className="uploaded-image">
-                <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
-                <button><img onClick={handleRemoveFile} src={cross} alt="remove" /></button>
-              </div>
-              )}
+            {errors.image && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+
+            {previewUrl && (<div className="uploaded-image">
+              <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
+              <button ><img onClick={handleRemoveFile} src={cross} alt="" /></button>
+            </div>)}
 
             <Colors vegy={vegy} vegData={vegData} register={register} />
+            {errors.color && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
 
-            <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
+            <button className="btn-next" type="submit" >পরবর্তি ধাপ</button>
           </form>
         </div>
+
       </div>
     );
   };
 
   const renderPageTwo = () => {
-
     localStorage.setItem("pageNum", page)
 
     return (
       <div>
         <TopNav bool={false} path={handlePrevPage} title='সবজির বিবরণ যুক্ত করুন' />
         <div className="custom-container">
-          <form onSubmit={handleNextPage}>
+          <form onSubmit={handleSubmit(handleNextPage)}>
 
-            <input type="number" {...register("length", { required: true })} className="form-control py-3" id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
+            <input name="length" type="number" {...register("length", { required: true })} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
+            {errors.length && <span className="text-danger fw-bold m-1" >ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
 
-            <input type="number" {...register("width", { required: true })} className="form-control py-3" id="width" placeholder="সবজির প্রস্থ লেখুন" />
+            <input type="number" {...register("width", { required: true })} id="width" placeholder="সবজির প্রস্থ লেখুন" />
+            {errors.width && <span className="text-danger fw-bold m-1">ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
 
-            <input type="number" {...register("weight", { required: true })} className="form-control py-3" id="weight" placeholder="সবজির ওজন লেখুন" />
+            <input type="number" {...register("weight", { required: true })} id="weight" placeholder="সবজির ওজন লেখুন" />
+            {errors.weight && <span className="text-danger fw-bold m-1">ঘরটি অবশ্যই পূরণ করতে হবে*</span>}
+            <textarea  {...register("extraInfo", { required: true })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
 
-            <textarea className="form-control" {...register("extraInfo", { required: true })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
-
-            <button className="btn-next" type="submit">পরবর্তি ধাপ</button>
+            <button className="btn-next" type="submit" >পরবর্তি ধাপ</button>
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
           </form>
         </div>
@@ -136,9 +141,7 @@ const Form = () => {
   };
 
   const renderPageThree = () => {
-
     localStorage.setItem("pageNum", page)
-
     return (
       <div>
         <TopNav bool={false} path={handlePrevPage} title='সবজির মান পরীক্ষা করুন' />
@@ -153,14 +156,13 @@ const Form = () => {
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
           </form>
         </div>
+
       </div>
     );
   };
 
   const renderPageFour = () => {
-
     localStorage.setItem("pageNum", page)
-
     return (
       <div>
         <TopNav bool={true} path={null} title='সফলভাবে জমা দেওয়া হয়েছে!' />
@@ -169,8 +171,10 @@ const Form = () => {
             <img src={done_image} alt="success" />
             <p>সফলভাবে জমা দেওয়া হয়েছে!</p>
           </div>
+
           <button className="btn-next" onClick={handleRedirect}>নতুন সবজি যোগ করুন</button>
           <button className="btn-prev" onClick={() => { localStorage.setItem("pageNum", 1); navigate('/') }}>হোমে ফিরে যান</button>
+
         </div>
       </div>
     );
