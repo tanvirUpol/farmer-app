@@ -13,17 +13,19 @@ import { useForm } from 'react-hook-form'
 const Form = () => {
   const navigate = useNavigate()
  
-  const { register, handleSubmit, formState: { errors }  } = useForm();
+  const { register,getValues , handleSubmit, formState: { errors }  } = useForm();
    // eslint-disable-next-line
   const [vegy,setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   // eslint-disable-next-line
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
- 
+ const [localData,setLocalData] = useState(JSON.parse(localStorage.getItem("vegetableData")))
 
-  const handleNextPage = (val,e) => {
+  
+ const handleNextPage = (data,e) => {
     e.preventDefault();
+    localStorage.setItem("vegetableData", JSON.stringify(data));
     setPage(page + 1);
   };
 
@@ -34,7 +36,7 @@ const Form = () => {
 
   function handleFileUpload(e) {
     setImage(e.target.files[0])
-    setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+    setPreviewUrl(URL.createObjectURL(image));
 
     // uploading image 
     // const image = e.target.files[0]
@@ -59,17 +61,18 @@ const Form = () => {
   const onSubmit = data => {
     console.log(data)
     console.log("submitted data")
+    localStorage.removeItem("vegetableData")
     setPage(page + 1);
   };
 
   const handleRedirect = () => {
     localStorage.setItem("pageNum", 1)
-    window.location.reload(false)
+    window.location.reload(false)  
 
   };
 
-  
 
+  
 
   const renderPageOne = () => {
     localStorage.setItem("pageNum", page)
@@ -160,11 +163,11 @@ const Form = () => {
       <div>
         <TopNav bool={false} path={handlePrevPage} title='সবজির মান পরীক্ষা করুন' />
         <div className="custom-container">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(handleNextPage)}>
             <div className="questions">
               <FormQuestions errors={errors} vegy={vegy} vegData={vegData} register={register} question="ফুলের গায়ে কোন দাগ, পচা চিহ্ন  আছে কি?" />
             </div>
-            <button className="btn-next" type="submit">জমা দিন</button>
+            <button className="btn-next" type="submit" >পরবর্তি ধাপ</button>
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
           </form>
         </div>
@@ -173,11 +176,48 @@ const Form = () => {
     );
   };
 
+
+
   const renderPageFour = () => {
     localStorage.setItem("pageNum", page)
     return (
       <div>
-        <TopNav bool={true} path={null} title='সফলভাবে জমা দেওয়া হয়েছে!' />
+      <TopNav bool={false} path={handlePrevPage} title={getValues("vegetable")} />
+      <div className="custom-container">
+        <form className="d-flex flex-column align-items-center justify-content-center" onSubmit={handleSubmit(onSubmit)}>
+        <img className="up-image m-1" style={{height: '120px', width: '190px'}} key={previewUrl} src={previewUrl} alt="vegetable" />
+        <table className="table text-center table-bordered m-2">
+            <thead>
+              <tr>
+                <th scope="col">দৈর্ঘ্য</th>
+                <th scope="col">প্রস্থ</th>
+                <th scope="col">রঙ</th>
+                <th scope="col">ওজন</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{getValues("length") + ' সে মি'}</td>
+                <td>{getValues("width") + ' সে মি'}</td>
+                <td>{getValues("color")}</td>
+                <td>{getValues("weight")+ ' গ্রাম'}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button className="btn-next" type="submit">জমা দিন</button>
+          <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
+        </form>
+      </div>
+
+    </div>
+    );
+  };
+
+  const renderPageFive = () => {
+    localStorage.setItem("pageNum", page)
+    return (
+      <div>
+        <TopNav bool={true} path={null} title='সফলভাবে জমা দেওয়া হয়েছে' />
         <div className="custom-container">
           <div className="done-section">
             <img src={done_image} alt="success" />
@@ -204,6 +244,9 @@ const Form = () => {
 
     case 4:
       return renderPageFour();
+
+    case 5:
+      return renderPageFive();
 
     default:
       return renderPageOne();

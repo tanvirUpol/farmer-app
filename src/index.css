@@ -258,12 +258,12 @@ color: #279636;
 
 /* vegy-info */
 
-.vegyFeatures td{
-  font-size: 13px;
+td{
+  font-size: 12px;
   font-weight: 600;
 }
 
-.vegyFeatures th, .vegy-title{
+ th, .vegy-title{
   color: #279636;
 }
 
