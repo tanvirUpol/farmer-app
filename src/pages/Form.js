@@ -122,7 +122,7 @@ const Form = () => {
           <form onSubmit={handleSubmit(handleNextPage)}>
 
             <div className="select-container">
-              <select   {...register("vegetable", { onChange: (e) => { setVegy(e.target.value) }, required: true })}>
+              <select   {...register("vegetable", { onChange: (e) => { setVegy(e.target.value); setQuestions([]) }, required: true })}>
 
                 {vegData.map((item) => (
                   <option key={item.code} value={item.name}>{item.name}</option>
@@ -247,7 +247,18 @@ const Form = () => {
                   <td>{getValues("weight") + ' গ্রাম'}</td>
                 </tr>
               </tbody>
+              
             </table>
+            <div className="question-data">
+            {questions.map((item)=>(
+             
+              <div key={item.questionName} className="question mt-2">
+                  <p className="m-0">{item.questionName}</p>
+                  <p className="m-0 fw-bold" style={{ color: '#279636'}}>{item.answer}</p>
+              </div>
+            ))}  
+                
+            </div>
             <button id='final-submit' className="btn-next" type="submit">জমা দিন</button>
             <button style={{ display: 'none' }} id='form-submit-loader' className="btn-next" type="submit">জমা হচ্ছে ...</button>
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
