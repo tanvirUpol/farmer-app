@@ -12,18 +12,18 @@ import useAuth from "../hooks/useAuth";
 const Form = () => {
 
   const navigate = useNavigate()
-  const { register,getValues , handleSubmit, formState: { errors }  } = useForm();
+  const { register, getValues, handleSubmit, formState: { errors } } = useForm();
   const { user } = useAuth()
   // eslint-disable-next-line
   const [vegy, setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [localData,setLocalData] = useState(JSON.parse(localStorage.getItem("vegetableData")))
-  const [questions,setQuestions] = useState([])
+  // eslint-disable-next-line
+  const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem("vegetableData")))
+  const [questions, setQuestions] = useState([])
 
-  
- const handleNextPage = (data,e) => {
+  const handleNextPage = (data, e) => {
     e.preventDefault();
     localStorage.setItem("vegetableData", JSON.stringify(data));
     setPage(page + 1);
@@ -35,8 +35,8 @@ const Form = () => {
   };
 
   function handleFileUpload(e) {
-      setImage(e.target.files[0])
-      setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0])
+    setPreviewUrl(URL.createObjectURL(e.target.files[0]));
   }
 
   function handleRemoveFile() {
@@ -45,9 +45,8 @@ const Form = () => {
   }
 
   const onSubmit = data => {
-    console.log("submitted data")
     localStorage.removeItem("vegetableData")
-    
+
 
     document.getElementById('final-submit').style.display = 'none'
     document.getElementById('form-submit-loader').style.display = 'block'
@@ -62,20 +61,22 @@ const Form = () => {
     })
       .then(response => response.json())
       .then(imageData => {
-        console.log(imageData);
-        const productDetails = {
-          number: user.phone,
-          name: data.vegetable,
-          color: data.color,
-          weight: data.weight,
-          width: data.width,
-          length: data.length,
-          info: data.extraInfo,
-          image: imageData.data.url,
-          status: "বিচারাধীন",
-          questions: questions
-        }
+
         if (imageData.status === 200) {
+          const productDetails = {
+            number: user.phone,
+            name: data.vegetable,
+            color: data.color,
+            weight: data.weight,
+            width: data.width,
+            length: data.length,
+            info: data.extraInfo,
+            image: imageData.data.url,
+            status: "বিচারাধীন",
+            questions: questions,
+            date: new Date().toISOString().split('T')[0]
+          }
+
           fetch('https://efarmer.onrender.com/addProduct', {
             method: 'POST',
             headers: {
@@ -91,26 +92,23 @@ const Form = () => {
 
   const handleRedirect = () => {
     localStorage.setItem("pageNum", 1)
-
-    window.location.reload(false)  
-
+    window.location.reload(false)
   };
 
-  const  appendQuestions = (question,answer) => {
-      const obj = { questionName: question, answer: answer}
-      
-      const index = questions.findIndex(item => item.questionName === obj.questionName);
-      if (index !== -1) {
-        // if object exists in array, overwrite it
-        const newArr = [...questions];
-        newArr[index] = obj;
-        setQuestions(newArr);
-      } else {
-        // if object doesn't exist in array, append it
-        setQuestions(prevArr => [...prevArr, obj]);
-      }
-  }
+  const appendQuestions = (question, answer) => {
+    const obj = { questionName: question, answer: answer }
 
+    const index = questions.findIndex(item => item.questionName === obj.questionName);
+    if (index !== -1) {
+      // if object exists in array, overwrite it
+      const newArr = [...questions];
+      newArr[index] = obj;
+      setQuestions(newArr);
+    } else {
+      // if object doesn't exist in array, append it
+      setQuestions(prevArr => [...prevArr, obj]);
+    }
+  }
 
   const renderPageOne = () => {
 
@@ -171,13 +169,25 @@ const Form = () => {
         <div className="custom-container">
           <form onSubmit={handleSubmit(handleNextPage)}>
 
-            <input type="number" step='0.01' {...register("length", { required: true })} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
+            <input 
+            type="text" 
+            // type="number" 
+            // step='0.01' 
+            {...register("length", { required: true })} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
             {errors.length && <span className="text-danger fw-bold m-1" >অনুগ্রহ করে দৈর্ঘ্য টাইপ করুন*</span>}
 
-            <input type="number" step='0.01'  {...register("width", { required: true })} id="width" placeholder="সবজির প্রস্থ লেখুন" />
+            <input 
+            type="text" 
+            // type="number" 
+            // step='0.01' 
+             {...register("width", { required: true })} id="width" placeholder="সবজির প্রস্থ লেখুন" />
             {errors.width && <span className="text-danger fw-bold m-1">অনুগ্রহ করে প্রস্থ টাইপ করুন*</span>}
 
-            <input type="number" step='0.01' {...register("weight", { required: true })} id="weight" placeholder="সবজির ওজন লেখুন" />
+            <input 
+            type="text" 
+            // type="number" 
+            // step='0.01' 
+            {...register("weight", { required: true })} id="weight" placeholder="সবজির ওজন লেখুন" />
             {errors.weight && <span className="text-danger fw-bold m-1">অনুগ্রহ করে ওজন টাইপ করুন*</span>}
             <textarea  {...register("extraInfo", { required: false })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
 
@@ -210,43 +220,41 @@ const Form = () => {
     );
   };
 
-
-
   const renderPageFour = () => {
 
     localStorage.setItem("pageNum", page)
 
     return (
       <div>
-      <TopNav bool={false} path={handlePrevPage} title={getValues("vegetable")} />
-      <div className="custom-container">
-        <form className="d-flex flex-column align-items-center justify-content-center" onSubmit={handleSubmit(onSubmit)}>
-        <img className="up-image m-1" style={{height: '120px', width: '190px'}} key={previewUrl} src={previewUrl} alt="vegetable" />
-        <table className="table text-center table-bordered m-2">
-            <thead>
-              <tr>
-                <th scope="col">দৈর্ঘ্য</th>
-                <th scope="col">প্রস্থ</th>
-                <th scope="col">রঙ</th>
-                <th scope="col">ওজন</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{getValues("length") + ' সে মি'}</td>
-                <td>{getValues("width") + ' সে মি'}</td>
-                <td>{getValues("color")}</td>
-                <td>{getValues("weight")+ ' গ্রাম'}</td>
-              </tr>
-            </tbody>
-          </table>
-          <button id='final-submit' className="btn-next" type="submit">জমা দিন</button>
-          <button style={{display:'none'}} id='form-submit-loader' className="btn-next" type="submit">জমা হচ্ছে</button>
-          <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
-        </form>
-      </div>
+        <TopNav bool={false} path={handlePrevPage} title={getValues("vegetable")} />
+        <div className="custom-container">
+          <form className="d-flex flex-column align-items-center justify-content-center" onSubmit={handleSubmit(onSubmit)}>
+            <img className="up-image m-1" style={{ height: '120px', width: '190px' }} key={previewUrl} src={previewUrl} alt="vegetable" />
+            <table className="table text-center table-bordered m-2">
+              <thead>
+                <tr>
+                  <th scope="col">দৈর্ঘ্য</th>
+                  <th scope="col">প্রস্থ</th>
+                  <th scope="col">রঙ</th>
+                  <th scope="col">ওজন</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{getValues("length") + ' সে মি'}</td>
+                  <td>{getValues("width") + ' সে মি'}</td>
+                  <td>{getValues("color")}</td>
+                  <td>{getValues("weight") + ' গ্রাম'}</td>
+                </tr>
+              </tbody>
+            </table>
+            <button id='final-submit' className="btn-next" type="submit">জমা দিন</button>
+            <button style={{ display: 'none' }} id='form-submit-loader' className="btn-next" type="submit">জমা হচ্ছে ...</button>
+            <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
+          </form>
+        </div>
 
-    </div>
+      </div>
     );
   };
 

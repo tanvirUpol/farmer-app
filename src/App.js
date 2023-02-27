@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import AuthProvider from './context/AuthProvider';
 import PrivateOutlet from './components/PrivateOutlet';
 import Login from './pages/Login';
+import PreviousUploadedList from './pages/PreviousUploadedList';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
 
         <Route path='/' element={<PrivateOutlet />}>
           <Route path="/" element={<Home />} />
+          <Route path="previous-uploaded-list" element={<PreviousUploadedList />} />
           <Route path="form" element={<Form />} />
           <Route path="infoList" element={<VegyInfoList />} />
           <Route path="infoList/:id" element={<VegyInfo />} />
