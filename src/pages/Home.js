@@ -20,7 +20,7 @@ const Home = () => {
             <div className="mt-4">
                 <HomeSection img={camera_img} path='/form' btnText='তথ্য আপলোড' text='সবজির তথ্য আপলোড করুন' />
                 <HomeSection img={vegy_bag} path='/infoList' btnText='এখানে পড়ুন' text='সবজির তথ্য সম্পর্কে পড়ুন' />
-                <HomeSection img={carrot_img} path='/form' btnText='এখানে দেখুন' text='আপলোড করা সবজি দেখুন' />
+                <HomeSection img={carrot_img} path='/previous-uploaded-list' btnText='এখানে দেখুন' text='আপলোড করা সবজি দেখুন' />
             </div>
 
         </div>
