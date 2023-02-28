@@ -12,7 +12,7 @@ import useAuth from "../hooks/useAuth";
 const Form = () => {
 
   const navigate = useNavigate()
-  const { register, getValues, handleSubmit, formState: { errors } } = useForm();
+  const { register,unregister, getValues, handleSubmit, formState: { errors } } = useForm();
   const { user } = useAuth()
   // eslint-disable-next-line
   const [vegy, setVegy] = useState(vegData[0].name)
@@ -122,7 +122,7 @@ const Form = () => {
           <form onSubmit={handleSubmit(handleNextPage)}>
 
             <div className="select-container">
-              <select   {...register("vegetable", { onChange: (e) => { setVegy(e.target.value); setQuestions([]) }, required: true })}>
+              <select   {...register("vegetable", { onChange: (e) => { setVegy(e.target.value); setQuestions([]); unregister("question1","question2","question3"); }, required: true })}>
 
                 {vegData.map((item) => (
                   <option key={item.code} value={item.name}>{item.name}</option>
