@@ -121,6 +121,7 @@ const Login = () => {
                     navigate('/')
                 }
                 else {
+                    window.navigator.vibrate([200,100,300])
                     Swal.fire({
                         icon: 'error',
                         title: `${data.message}`,
