@@ -114,7 +114,7 @@ const Form = () => {
     unregister("question1");
     unregister("question2");
     unregister("question3");
-    console.log("veg registers cleared");
+    // console.log("veg registers cleared");
   }
 
   const renderPageOne = () => {
