@@ -12,6 +12,11 @@ import Login from './pages/Login';
 import PreviousUploadedList from './pages/PreviousUploadedList';
 
 function App() {
+
+  document.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+  });
+
   return (
     <AuthProvider>
       <Routes>
