@@ -14,7 +14,7 @@ const PreviousUploadedList = () => {
             .then(response => response.json())
             .then(data => {
                 setList(data.result)
-                // console.log(data)
+                // console.log(data)b
             })
     }, [user.phone])
 
@@ -33,7 +33,8 @@ const PreviousUploadedList = () => {
                     list.map(item =>
                         <div key={item._id} style={{ border: "1px solid #898A8D", borderRadius: '5px', fontSize: '12px' }} className="d-flex justify-content-around align-items-center mt-3 custom-container p-2">
                             <div className="col-4 text-center">{item.name}</div>
-                            <div className="col-4 text-center">{new Date(item.date).toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric' }).replace(/(\d+)/g, (match, digit) => String.fromCharCode(digit.charCodeAt(0) + 2486))}</div>
+                            {/* <div className="col-4 text-center">{new Date(item.date).toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric' }).replace(/(\d+)/g, (match, digit) => String.fromCharCode(digit.charCodeAt(0) + 2486))}</div> */}
+                            <div className="col-4 text-center">{new Date(item.date).toLocaleDateString("bn-BD", { dateStyle: 'full' })}</div>
                             {
                                 item.status === 'বিচারাধীন' && <div style={{ color: '#DE5D1D' }} className="col-4 text-center">{item.status}</div>
                             }
