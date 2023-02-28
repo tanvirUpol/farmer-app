@@ -12,7 +12,7 @@ import useAuth from "../hooks/useAuth";
 const Form = () => {
 
   const navigate = useNavigate()
-  const { register, getValues, handleSubmit, formState: { errors } } = useForm();
+  const { register,unregister, getValues, handleSubmit, formState: { errors } } = useForm();
   const { user } = useAuth()
   // eslint-disable-next-line
   const [vegy, setVegy] = useState(vegData[0].name)
@@ -110,6 +110,13 @@ const Form = () => {
     }
   }
 
+  const clearRegister = () => {
+    unregister("question1");
+    unregister("question2");
+    unregister("question3");
+    // console.log("veg registers cleared");
+  }
+
   const renderPageOne = () => {
 
     localStorage.setItem("pageNum", page)
@@ -122,7 +129,7 @@ const Form = () => {
           <form onSubmit={handleSubmit(handleNextPage)}>
 
             <div className="select-container">
-              <select   {...register("vegetable", { onChange: (e) => { setVegy(e.target.value) }, required: true })}>
+              <select   {...register("vegetable", { onChange: (e) => { setVegy(e.target.value); setQuestions([]); clearRegister() }, required: true })}>
 
                 {vegData.map((item) => (
                   <option key={item.code} value={item.name}>{item.name}</option>
@@ -229,7 +236,7 @@ const Form = () => {
         <TopNav bool={false} path={handlePrevPage} title={getValues("vegetable")} />
         <div className="custom-container">
           <form className="d-flex flex-column align-items-center justify-content-center" onSubmit={handleSubmit(onSubmit)}>
-            <img className="up-image m-1" style={{ height: '120px', width: '190px' }} key={previewUrl} src={previewUrl} alt="vegetable" />
+            <img className="up-image m-1" style={{ height: '100px', width: '150px' }} key={previewUrl} src={previewUrl} alt="vegetable" />
             <table className="table text-center table-bordered m-2">
               <thead>
                 <tr>
@@ -247,10 +254,21 @@ const Form = () => {
                   <td>{getValues("weight") + ' গ্রাম'}</td>
                 </tr>
               </tbody>
+              
             </table>
-            <button id='final-submit' className="btn-next" type="submit">জমা দিন</button>
+            <div className="question-data w-100">
+            {questions.map((item)=>(
+             
+              <div key={item.questionName} className="question mt-2  p-3">
+                  <p className="m-0">{item.questionName}</p>
+                  <p className="m-0 fw-bold" style={{ color: '#279636'}}>{item.answer}</p>
+              </div>
+            ))}  
+                
+            </div>
+            <button id='final-submit' className="btn-next m-1" type="submit">জমা দিন</button>
             <button style={{ display: 'none' }} id='form-submit-loader' className="btn-next" type="submit">জমা হচ্ছে ...</button>
-            <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
+            <button className="btn-prev mt-1" onClick={handlePrevPage}>আগের ধাপ</button>
           </form>
         </div>
 

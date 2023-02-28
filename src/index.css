@@ -153,7 +153,7 @@ form input{
   width: 100%;
   padding: 15px;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: #fff;
   background-color: #7CC259;
   border: none;
@@ -161,10 +161,11 @@ form input{
 }
 .btn-prev{
   margin-top: 10px;
+  margin-bottom: 15px;
   width: 100%;
   padding: 15px;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: #7CC259;
   background-color: #fff;
   border: 2px solid #7CC259;
@@ -213,6 +214,7 @@ textarea{
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
+  font-size: 12px
 }
 
 .question p{
@@ -303,4 +305,14 @@ li{
 
 .input-otp{
   margin: 0;
+}
+
+/* preview page */
+
+/* .question-data .question{
+  padding: 18px;
+} */
+
+.question-data p{
+  font-size: 12px;
 }

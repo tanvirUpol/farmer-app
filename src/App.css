@@ -76,3 +76,18 @@ input::-webkit-inner-spin-button {
     line-height: 21px;
     color: #7CC259;
 }
+
+
+ /* Disable zooming on iOS */
+ @media (max-width: 767px) {
+    html, body {
+        touch-action: pan-x pan-y !important;
+        -webkit-user-zoom: fixed !important;
+        -moz-user-zoom: fixed !important;
+        -ms-user-zoom: fixed !important;
+        user-zoom: fixed !important;
+        -webkit-text-size-adjust: none !important;
+        -moz-text-size-adjust: none !important;
+        -ms-text-size-adjust: none !important;
+        text-size-adjust: none !important;
+    }}

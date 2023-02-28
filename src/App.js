@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import PreviousUploadedList from './pages/PreviousUploadedList';
 
 function App() {
+
+
   return (
     <AuthProvider>
       <Routes>
