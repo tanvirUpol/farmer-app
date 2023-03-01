@@ -10,7 +10,7 @@ const PreviousUploadedList = () => {
     const [list, setList] = useState([])
 
     useEffect(() => {
-        fetch(`https://efarmer.onrender.com/products/${user.phone}`)
+        fetch(`https://efarmer.herokuapp.com/products/${user.phone}`)
             .then(response => response.json())
             .then(data => {
                 setList(data.result)

@@ -66,7 +66,7 @@ const Form = () => {
     // const image = e.target.files[0]
     const formData = new FormData()
     formData.append('image', image)
-    const url = `https://api.imgbb.com/1/upload?expiration=600&key=2533d5f3e441eb6b52c7bec740a8dd84`
+    const url = `https://api.imgbb.com/1/upload?&key=2533d5f3e441eb6b52c7bec740a8dd84`
     fetch(url, {
       method: 'POST',
       body: formData
@@ -89,7 +89,7 @@ const Form = () => {
             date: new Date().toISOString().split('T')[0]
           }
 
-          fetch('https://efarmer.onrender.com/addProduct', {
+          fetch('https://efarmer.herokuapp.com/addProduct', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
