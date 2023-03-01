@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import TopNav from "../components/TopNav";
 import FormQuestions from "../components/FormQuestions";
@@ -12,7 +12,7 @@ import useAuth from "../hooks/useAuth";
 const Form = () => {
 
   const navigate = useNavigate()
-  const { register,unregister, getValues,setValue, handleSubmit, formState: { errors } } = useForm();
+  const { register,unregister, getValues, handleSubmit, formState: { errors } } = useForm();
   const { user } = useAuth()
   // eslint-disable-next-line
   const [vegy, setVegy] = useState(vegData[0].name)
