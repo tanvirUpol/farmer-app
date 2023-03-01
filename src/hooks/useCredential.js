@@ -8,7 +8,7 @@ const useCredential = () => {
 
     // getting userInfo from localStorage id and backend API
     const userData = () => {
-        fetch('https://efarmer.onrender.com/user/' + id)
+        fetch('https://efarmer.herokuapp.com/user/' + id)
             .then(response => response.json())
             .then(data => setUser(data))
     }
