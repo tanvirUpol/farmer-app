@@ -8,11 +8,14 @@ import { useEffect } from 'react'
 
 const Home = () => {
 
+    localStorage.setItem("pageNum", 1)
+
     const { logOut } = useAuth()
 
     useEffect(() => {
         localStorage.removeItem("vegetableData")
-        localStorage.removeItem("newVegyInfo")
+        localStorage.removeItem("vegyInfo")
+        localStorage.removeItem("vegyQues")
         localStorage.removeItem("imageData")
     }, []);
 

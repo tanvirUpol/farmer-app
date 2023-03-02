@@ -19,7 +19,7 @@ const Form = () => {
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(localStorage.getItem("imageData")? localStorage.getItem("imageData"):null);
-  // JSON.parse(localStorage.getItem("imageData"))?JSON.parse(localStorage.getItem("imageData")).image
+
   // eslint-disable-next-line
   const [questions, setQuestions] = useState([])
 
@@ -36,6 +36,9 @@ const Form = () => {
 
   function handleFileUpload(e) {
     setImage(e.target.files[0])
+    
+    localStorage.setItem('newImage',e.target.files[0])
+
     const url = URL.createObjectURL(e.target.files[0])
     setPreviewUrl(url);
     // setValue("image", e.target);
@@ -56,50 +59,74 @@ const Form = () => {
     setPreviewUrl(null);
   }
 
+
   const onSubmit = data => {
     
+      const newData = JSON.parse(localStorage.getItem('vegyInfo'))
+      const Savedquestions = JSON.parse(localStorage.getItem('vegyQues')).questions
+      // console.log(newData);
+      // console.log( newData.image); //base64
+
+      const productDetails = {
+                // number: user.phone,
+                name: newData.vegetable,
+                color: newData.color,
+                weight: newData.weight,
+                width: newData.width,
+                length: newData.length,
+                info: newData.extraInfo?newData.extraInfo:'',
+                // image: imageData.data.url,
+                status: "বিচারাধীন",
+                questions: Savedquestions,
+                date: new Date().toISOString().split('T')[0]
+              }
+              
+      console.log(productDetails);
 
 
-    document.getElementById('final-submit').style.display = 'none'
-    document.getElementById('form-submit-loader').style.display = 'block'
-    // uploading image 
-    // const image = e.target.files[0]
-    const formData = new FormData()
-    formData.append('image', image)
-    const url = `https://api.imgbb.com/1/upload?&key=2533d5f3e441eb6b52c7bec740a8dd84`
-    fetch(url, {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(imageData => {
+      
 
-        if (imageData.status === 200) {
-          const productDetails = {
-            number: user.phone,
-            name: data.vegetable,
-            color: data.color,
-            weight: data.weight,
-            width: data.width,
-            length: data.length,
-            info: data.extraInfo,
-            image: imageData.data.url,
-            status: "বিচারাধীন",
-            questions: questions,
-            date: new Date().toISOString().split('T')[0]
-          }
+      
+    // document.getElementById('final-submit').style.display = 'none'
+    // document.getElementById('form-submit-loader').style.display = 'block'
+    // // uploading image 
+    // // const image = e.target.files[0]
+    // const formData = new FormData()
+    // formData.append('image', image)
+    // const url = `https://api.imgbb.com/1/upload?&key=2533d5f3e441eb6b52c7bec740a8dd84`
+    // fetch(url, {
+    //   method: 'POST',
+    //   body: formData
+    // })
+    //   .then(response => response.json())
+    //   .then(imageData => {
 
-          fetch('https://efarmer.herokuapp.com/addProduct', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(productDetails)
-          })
-            .then(response => response.json())
-            .then(data => data.status === true && setPage(page + 1))
-        }
-      })
+    //     if (imageData.status === 200) {
+    //       const productDetails = {
+    //         number: user.phone,
+    //         name: data.vegetable,
+    //         color: data.color,
+    //         weight: data.weight,
+    //         width: data.width,
+    //         length: data.length,
+    //         info: data.extraInfo,
+    //         image: imageData.data.url,
+    //         status: "বিচারাধীন",
+    //         questions: questions,
+    //         date: new Date().toISOString().split('T')[0]
+    //       }
+
+    //       fetch('https://efarmer.herokuapp.com/addProduct', {
+    //         method: 'POST',
+    //         headers: {
+    //           'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(productDetails)
+    //       })
+    //         .then(response => response.json())
+    //         .then(data => data.status === true && setPage(page + 1))
+    //     }
+    //   })
   };
 
   const handleRedirect = () => {
@@ -126,7 +153,7 @@ const Form = () => {
   }
 
   const appendQuestionsLocal = (questionName, answer) => {
-    const localStorageObj = JSON.parse(localStorage.getItem('newVegyInfo')) || {};
+    const localStorageObj = JSON.parse(localStorage.getItem('vegyQues')) || {};
     const questionsArr = localStorageObj.questions || [];
   
     let updatedQuestionsArr = questionsArr.filter((questionObj) => {
@@ -136,7 +163,7 @@ const Form = () => {
     updatedQuestionsArr.push({ questionName, answer });
     localStorageObj.questions = updatedQuestionsArr;
   
-    localStorage.setItem('newVegyInfo', JSON.stringify(localStorageObj));
+    localStorage.setItem('vegyQues', JSON.stringify(localStorageObj));
   };
   
 
@@ -153,7 +180,7 @@ const Form = () => {
     unregister("question1");
     unregister("question2");
     unregister("question3");
-    localStorage.removeItem("newVegyInfo");
+    localStorage.removeItem("vegyQues");
 
     const keysToDelete = ['question1', 'question2', 'question3'];
 
@@ -176,8 +203,7 @@ const Form = () => {
 
     localStorage.setItem("pageNum", page)
     const pageOneData = JSON.parse(localStorage.getItem("vegyInfo"))
-    // console.log(localStorage.getItem("vegyInfo"));
-    console.log(JSON.parse(localStorage.getItem('vegyInfo')));
+   
 
     
     return (
@@ -295,9 +321,9 @@ const Form = () => {
   const renderPageFour = () => {
 
     localStorage.setItem("pageNum", page)
-    const questions =  (JSON.parse(localStorage.getItem('newVegyInfo')).questions)
+    const questions =  (JSON.parse(localStorage.getItem('vegyQues')).questions)
     const pageFourData = JSON.parse(localStorage.getItem("vegyInfo"))
-    console.log(pageFourData);
+  
 
     
 
