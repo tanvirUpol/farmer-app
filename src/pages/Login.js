@@ -38,9 +38,7 @@ const Login = () => {
             otp: OTP.toString()
         }
         otpDescription = otpDetails
-
         fetch('https://efarmer.onrender.com/login', {
-            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -118,7 +116,6 @@ const Login = () => {
             phone: otpDescription.phone,
             otp: otp
         }
-        
         fetch('https://efarmer.onrender.com/otp-verification', {
             method: 'POST',
             headers: {
