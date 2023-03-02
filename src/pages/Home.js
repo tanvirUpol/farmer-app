@@ -4,10 +4,20 @@ import vegy_bag from '../contents/vegy.svg'
 import carrot_img from '../contents/docsCarrot.svg'
 import HomeSection from "../components/HomeSection"
 import useAuth from '../hooks/useAuth'
+import { useEffect } from 'react'
 
 const Home = () => {
 
+    localStorage.setItem("pageNum", 1)
+
     const { logOut } = useAuth()
+
+    useEffect(() => {
+        localStorage.removeItem("vegetableData")
+        localStorage.removeItem("vegyInfo")
+        localStorage.removeItem("vegyQues")
+        localStorage.removeItem("imageData")
+    }, []);
 
     return (
         <div className='home custom-container'>
