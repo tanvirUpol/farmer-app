@@ -62,4 +62,4 @@ const FormQuestions = ({ vegy, vegData, register, errors, appendQuestions }) => 
     </>
   )
 }
-export default FormQuestions
+export default FormQuestions
