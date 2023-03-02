@@ -77,7 +77,7 @@ const Form = () => {
             date: new Date().toISOString().split('T')[0]
           }
 
-          fetch('https://efarmer.herokuapp.com/addProduct', {
+          fetch('https://efarmer.onrender.com/addProduct', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

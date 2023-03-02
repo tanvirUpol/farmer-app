@@ -39,7 +39,7 @@ const Login = () => {
         }
         otpDescription = otpDetails
 
-        fetch('https://efarmer.herokuapp.com/login', {
+        fetch('https://efarmer.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -90,6 +90,19 @@ const Login = () => {
         }
     }, [seconds, flag]);
 
+    const convertToBangla = number => {
+
+        const banglaNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+        let bangla = '';
+
+        while (number > 0) {
+            const digit = number % 10;
+            bangla = banglaNumbers[digit] + bangla;
+            number = Math.floor(number / 10);
+        }
+        return bangla;
+    }
+
     const formatTime = time => {
         return time < 10 ? (`0${time}`) : time;
     }
@@ -106,7 +119,7 @@ const Login = () => {
             otp: otp
         }
         
-        fetch('https://efarmer.herokuapp.com/otp-verification', {
+        fetch('https://efarmer.onrender.com/otp-verification', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -129,17 +142,8 @@ const Login = () => {
                     })
                     setOtp('')
                 }
-                // data.status === true ?
-                //         navigate('/') :
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: `${data.message}`,
-                //         text: 'Please try again!'
-                //     })
             })
     }
-
-    // https://api.mobireach.com.bd/SendTextMessage?Username=SHWAPNO&Password=Dhaka@1122334456&From=8801847170370&To=8801313055087&Message=testmessage
 
     return (
         <section className='container'>
@@ -165,8 +169,8 @@ const Login = () => {
                 <div className="d-flex justify-content-center align-items-center mt-3" >
                     <OtpInput inputStyle={'input-otp'} className='input-otp d-flex justify-content-center align-items-center mx-3' value={otp} onChange={handleChange} numInputs={4} isInputNum={true} />
                 </div>
-                <p className='otp-text text-center mt-3'>Haven’t receive OTP?</p>
-                <p className='otp-subtext text-center mt-3'>Resend ( 00:{seconds} )</p>
+                <p className='otp-text text-center mt-3'>ওয়ান টাইম পাসওয়ার্ড (ওটিপি) পাননি?</p>
+                <p className='otp-subtext text-center mt-3'>আবার পাঠান ( 00:{convertToBangla(seconds)} )</p>
             </div>
         </section>
     );
