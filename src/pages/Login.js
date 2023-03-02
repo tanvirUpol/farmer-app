@@ -39,6 +39,7 @@ const Login = () => {
         }
         otpDescription = otpDetails
         fetch('https://efarmer.onrender.com/login', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
