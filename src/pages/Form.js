@@ -12,7 +12,7 @@ import useAuth from "../hooks/useAuth";
 const Form = () => {
 
   const navigate = useNavigate()
-  const { register, unregister, getValues, handleSubmit, formState: { errors } } = useForm();
+  const { register, unregister, getValues,setValue, handleSubmit, formState: { errors } } = useForm();
   const { user } = useAuth()
   const [vegy, setVegy] = useState(vegData[0].name)
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
@@ -22,8 +22,16 @@ const Form = () => {
   const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem("vegetableData")))
   const [questions, setQuestions] = useState([])
 
+  const [length,setLength] = useState('')
+  const [width,setWidth] = useState('')
+  const [weight,setWeight] = useState('')
+  const [actualLength,setActualLength] = useState('')
+  const [actualWidth,setActualWidth] = useState('')
+  const [actualWeight,setActualWeight] = useState('')
+
   const handleNextPage = (data, e) => {
     e.preventDefault();
+    console.log(data);
     localStorage.setItem("vegetableData", JSON.stringify(data));
     setPage(page + 1);
   };
@@ -118,6 +126,36 @@ const Form = () => {
     // console.log("veg registers cleared");
   }
 
+  function convertBanglaToEnglish(input) {
+    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    
+
+    let englishNumber = '';
+
+    for (let i = 0; i < input.length; i++) {
+      const digit = input.charAt(i);
+      const index = bengaliDigits.indexOf(digit);
+      if (index !== -1) {
+        englishNumber += englishDigits[index];
+      } else {
+        englishNumber += digit;
+      }
+    }
+    englishNumber = parseFloat(englishNumber)
+
+    if(!isNaN(englishNumber)){
+        const value = englishNumber
+        return value
+    }
+  }
+
+  const handleInputValues = () => {
+    setValue("length", actualLength)
+    setValue("width", actualWidth)
+    setValue("weight", actualWeight)
+  }
+
   const renderPageOne = () => {
 
     localStorage.setItem("pageNum", page)
@@ -179,27 +217,79 @@ const Form = () => {
 
             <input
               type="text"
-              // type="number" 
-              // step='0.01' 
-              {...register("length", { required: true })} id="length" placeholder="সবজির দৈর্ঘ্য লেখুন" />
-            {errors.length && <span className="text-danger fw-bold m-1" >অনুগ্রহ করে দৈর্ঘ্য টাইপ করুন*</span>}
+              id="length" 
+              placeholder="সবজির দৈর্ঘ্য লেখুন" 
+              value={length}
+              {...register("length", 
+              { onChange: (e)=>
+                {
+                setLength(e.target.value);
+                setActualLength(convertBanglaToEnglish(e.target.value))
+                },
+                required: true, max: 50, min: 20,
+                pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
+              })} 
+              
+            />
+              <div>
+                    {errors.length && errors.length.type === "required" && (<span className="text-danger fw-bold m-1" >অনুগ্রহ করে দৈর্ঘ্য টাইপ করুন*</span>)}
+                    {errors.length && errors.length.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
+                    {errors.length && errors.length.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)}
+                    {errors.length && errors.length.type === "pattern" && ( <span className="text-danger fw-bold m-1" >অনুগ্রহ করে শুধুমাত্র সংখ্যা ইনপুট করুন*</span>)}
+              </div>
 
             <input
               type="text"
-              // type="number" 
-              // step='0.01' 
-              {...register("width", { required: true })} id="width" placeholder="সবজির প্রস্থ লেখুন" />
-            {errors.width && <span className="text-danger fw-bold m-1">অনুগ্রহ করে প্রস্থ টাইপ করুন*</span>}
+              id="width" 
+              placeholder="সবজির প্রস্থ লেখুন" 
+              value={width}
+              {...register("width", 
+              { onChange: (e)=>
+                {
+                setWidth(e.target.value);
+                setActualWidth(convertBanglaToEnglish(e.target.value))
+                },
+                required: true, max: 50, min: 20,
+                pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
+              })} 
+              
+              />
+              <div>
+                    {errors.width && errors.width.type === "required" && (<span className="text-danger fw-bold m-1" >অনুগ্রহ করে প্রস্থ টাইপ করুন*</span>)}
+                    {errors.width && errors.width.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
+                    {errors.width && errors.width.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)}
+                    {errors.width && errors.width.type === "pattern" && ( <span className="text-danger fw-bold m-1" >অনুগ্রহ করে শুধুমাত্র সংখ্যা ইনপুট করুন*</span>)}
+              </div>
 
             <input
               type="text"
-              // type="number" 
-              // step='0.01' 
-              {...register("weight", { required: true })} id="weight" placeholder="সবজির ওজন লেখুন" />
-            {errors.weight && <span className="text-danger fw-bold m-1">অনুগ্রহ করে ওজন টাইপ করুন*</span>}
+              id="weight" 
+              placeholder="সবজির ওজন লেখুন" 
+              value={weight}
+              {...register("weight", 
+              { onChange: (e)=>
+                {
+                setWeight(e.target.value);
+                setActualWeight(convertBanglaToEnglish(e.target.value))
+                },
+                required: true, max: 50, min: 20,
+                pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
+              })} 
+              />
+              <div>
+                    {errors.weight && errors.weight.type === "required" && (<span className="text-danger fw-bold m-1" >অনুগ্রহ করে ওজন টাইপ করুন*</span>)}
+                    {errors.weight && errors.weight.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
+                    {errors.weight && errors.weight.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)}
+                    {errors.weight && errors.weight.type === "pattern" && ( <span className="text-danger fw-bold m-1" >অনুগ্রহ করে শুধুমাত্র সংখ্যা ইনপুট করুন*</span>)}
+              </div>
+        
+
+
+
+
             <textarea  {...register("extraInfo", { required: false })} placeholder="অতিরিক্ত তথ্য লিখুন..." id="extraInfo"></textarea>
 
-            <button className="btn-next" type="submit" >পরবর্তি ধাপ</button>
+            <button className="btn-next" onClick={handleInputValues} type="submit" >পরবর্তি ধাপ</button>
             <button className="btn-prev" onClick={handlePrevPage}>আগের ধাপ</button>
           </form>
         </div>
