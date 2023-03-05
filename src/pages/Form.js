@@ -31,7 +31,7 @@ const Form = () => {
 
   const handleNextPage = (data, e) => {
     e.preventDefault();
-    console.log(data);
+  
     localStorage.setItem("vegetableData", JSON.stringify(data));
     setPage(page + 1);
   };
@@ -123,7 +123,6 @@ const Form = () => {
     unregister("question1");
     unregister("question2");
     unregister("question3");
-    // console.log("veg registers cleared");
   }
 
   function convertBanglaToEnglish(input) {
@@ -207,7 +206,6 @@ const Form = () => {
 
   const renderPageTwo = () => {
     const selectedVegy = vegData.find(item => item.name === vegy)
-    console.log(selectedVegy.limits.maxLength);
 
     localStorage.setItem("pageNum", page)
 

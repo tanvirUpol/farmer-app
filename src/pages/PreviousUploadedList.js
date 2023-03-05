@@ -14,7 +14,6 @@ const PreviousUploadedList = () => {
             .then(response => response.json())
             .then(data => {
                 setList(data.result)
-                // console.log(data)
             })
     }, [user.phone])
 

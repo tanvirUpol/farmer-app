@@ -27,7 +27,7 @@
             "maxLength": 30,
             "minLength": 22,
             "maxWidth": 28,
-            "minWidth": 22,
+            "minWidth": 20,
             "maxWeight": 1000,
             "minWeght": 800
         }
