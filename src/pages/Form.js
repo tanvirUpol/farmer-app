@@ -206,6 +206,8 @@ const Form = () => {
   };
 
   const renderPageTwo = () => {
+    const selectedVegy = vegData.find(item => item.name === vegy)
+    console.log(selectedVegy.limits.maxLength);
 
     localStorage.setItem("pageNum", page)
 
@@ -218,7 +220,7 @@ const Form = () => {
             <input
               type="text"
               id="length" 
-              placeholder="সবজির দৈর্ঘ্য লেখুন" 
+              placeholder="সবজির দৈর্ঘ্য লেখুন (সে.মি)" 
               value={length}
               {...register("length", 
               { onChange: (e)=>
@@ -226,7 +228,7 @@ const Form = () => {
                 setLength(e.target.value);
                 setActualLength(convertBanglaToEnglish(e.target.value))
                 },
-                required: true, max: 50, min: 20,
+                required: true, max: `${selectedVegy.limits.maxLength}`, min: `${selectedVegy.limits.minLength}`,
                 pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
               })} 
               
@@ -241,7 +243,7 @@ const Form = () => {
             <input
               type="text"
               id="width" 
-              placeholder="সবজির প্রস্থ লেখুন" 
+              placeholder="সবজির প্রস্থ লেখুন (সে.মি)" 
               value={width}
               {...register("width", 
               { onChange: (e)=>
@@ -249,7 +251,7 @@ const Form = () => {
                 setWidth(e.target.value);
                 setActualWidth(convertBanglaToEnglish(e.target.value))
                 },
-                required: true, max: 50, min: 20,
+                required: true, max: `${selectedVegy.limits.maxWidth}`, min: `${selectedVegy.limits.minWidth}`,
                 pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
               })} 
               
@@ -264,7 +266,7 @@ const Form = () => {
             <input
               type="text"
               id="weight" 
-              placeholder="সবজির ওজন লেখুন" 
+              placeholder="সবজির ওজন লেখুন (গ্রাম)" 
               value={weight}
               {...register("weight", 
               { onChange: (e)=>
@@ -272,7 +274,7 @@ const Form = () => {
                 setWeight(e.target.value);
                 setActualWeight(convertBanglaToEnglish(e.target.value))
                 },
-                required: true, max: 50, min: 20,
+                required: true, max: `${selectedVegy.limits.maxWeight}`, min: `${selectedVegy.limits.minWeght}`,
                 pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
               })} 
               />

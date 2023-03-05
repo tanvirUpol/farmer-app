@@ -17,6 +17,7 @@ const Home = () => {
         localStorage.removeItem("vegyInfo")
         localStorage.removeItem("vegyQues")
         localStorage.removeItem("imageData")
+        localStorage.removeItem("newImage")
     }, []);
 
     return (
