@@ -205,7 +205,7 @@ const Form = () => {
   };
 
   const renderPageTwo = () => {
-    const selectedVegy = vegData.find(item => item.name === vegy)
+    // const selectedVegy = vegData.find(item => item.name === vegy)
 
     localStorage.setItem("pageNum", page)
 
@@ -226,15 +226,16 @@ const Form = () => {
                 setLength(e.target.value);
                 setActualLength(convertBanglaToEnglish(e.target.value))
                 },
-                required: true, max: `${selectedVegy.limits.maxLength}`, min: `${selectedVegy.limits.minLength}`,
+                // required: true, max: `${selectedVegy.limits.maxLength}`, min: `${selectedVegy.limits.minLength}`,
+                required: true,
                 pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
               })} 
               
             />
               <div>
                     {errors.length && errors.length.type === "required" && (<span className="text-danger fw-bold m-1" >অনুগ্রহ করে দৈর্ঘ্য টাইপ করুন*</span>)}
-                    {errors.length && errors.length.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
-                    {errors.length && errors.length.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)}
+                    {/* {errors.length && errors.length.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
+                    {errors.length && errors.length.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)} */}
                     {errors.length && errors.length.type === "pattern" && ( <span className="text-danger fw-bold m-1" >অনুগ্রহ করে শুধুমাত্র সংখ্যা ইনপুট করুন*</span>)}
               </div>
 
@@ -249,15 +250,16 @@ const Form = () => {
                 setWidth(e.target.value);
                 setActualWidth(convertBanglaToEnglish(e.target.value))
                 },
-                required: true, max: `${selectedVegy.limits.maxWidth}`, min: `${selectedVegy.limits.minWidth}`,
+                // required: true, max: `${selectedVegy.limits.maxWidth}`, min: `${selectedVegy.limits.minWidth}`,
+                required: true, 
                 pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
               })} 
               
               />
               <div>
                     {errors.width && errors.width.type === "required" && (<span className="text-danger fw-bold m-1" >অনুগ্রহ করে প্রস্থ টাইপ করুন*</span>)}
-                    {errors.width && errors.width.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
-                    {errors.width && errors.width.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)}
+                    {/* {errors.width && errors.width.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
+                    {errors.width && errors.width.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)} */}
                     {errors.width && errors.width.type === "pattern" && ( <span className="text-danger fw-bold m-1" >অনুগ্রহ করে শুধুমাত্র সংখ্যা ইনপুট করুন*</span>)}
               </div>
 
@@ -272,14 +274,15 @@ const Form = () => {
                 setWeight(e.target.value);
                 setActualWeight(convertBanglaToEnglish(e.target.value))
                 },
-                required: true, max: `${selectedVegy.limits.maxWeight}`, min: `${selectedVegy.limits.minWeght}`,
+                // required: true, max: `${selectedVegy.limits.maxWeight}`, min: `${selectedVegy.limits.minWeght}`,
+                required: true,
                 pattern: /[0-9০১২৩৪৫৬৭৮৯]+/i 
               })} 
               />
               <div>
                     {errors.weight && errors.weight.type === "required" && (<span className="text-danger fw-bold m-1" >অনুগ্রহ করে ওজন টাইপ করুন*</span>)}
-                    {errors.weight && errors.weight.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
-                    {errors.weight && errors.weight.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)}
+                    {/* {errors.weight && errors.weight.type === "max" && ( <span  className="text-danger fw-bold m-1" >সর্বোচ্চ পরিমাণ ছাড়িয়ে গেছে</span>)}
+                    {errors.weight && errors.weight.type === "min" && ( <span  className="text-danger fw-bold m-1" >ন্যূনতম পরিমাণ অতিক্রম করেছে</span>)} */}
                     {errors.weight && errors.weight.type === "pattern" && ( <span className="text-danger fw-bold m-1" >অনুগ্রহ করে শুধুমাত্র সংখ্যা ইনপুট করুন*</span>)}
               </div>
         
