@@ -8,6 +8,7 @@ import done_image from '../contents/done.svg'
 import vegData from '../data/vegData.json'
 import { useForm } from 'react-hook-form'
 import useAuth from "../hooks/useAuth";
+import Colors from "../components/Colors";
 
 const Form = () => {
 
@@ -15,6 +16,7 @@ const Form = () => {
   const { register, unregister, getValues,setValue, handleSubmit, formState: { errors } } = useForm();
   const { user } = useAuth()
   const [vegy, setVegy] = useState(vegData[0].name)
+  // const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   const [page, setPage] = useState(parseInt(localStorage.getItem('pageNum')) ? parseInt(localStorage.getItem('pageNum')) : 1);
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -31,7 +33,7 @@ const Form = () => {
 
   const handleNextPage = (data, e) => {
     e.preventDefault();
-  
+    
     localStorage.setItem("vegetableData", JSON.stringify(data));
     setPage(page + 1);
   };
@@ -76,6 +78,7 @@ const Form = () => {
             number: user.phone,
             name: data.vegetable,
             color: data.color,
+            colorCode: data.colorCode,
             weight: data.weight,
             width: data.width,
             length: data.length,
@@ -193,6 +196,8 @@ const Form = () => {
             {previewUrl && (<div className="uploaded-image">
               <img className="up-image" key={previewUrl} src={previewUrl} alt="vegetable" />
               <button ><img onClick={handleRemoveFile} src={cross} alt="" /></button>
+              <Colors getValues={getValues} vegy={vegy} vegData={vegData} register={register} errors={errors} />
+              {errors.colorCode && <span className="text-danger fw-bold m-1 pt-5" >অনুগ্রহ করে সবজির রং বাছাই করুন*</span>}
               <input name="color" type="text" {...register("color", { required: true })} id="color" placeholder="সবজির রং লেখুন" />
               {errors.color && <span className="text-danger fw-bold m-1" >অনুগ্রহ করে সবজির রং টাইপ করুন*</span>}
             </div>)}

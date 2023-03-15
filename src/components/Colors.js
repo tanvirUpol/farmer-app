@@ -1,5 +1,6 @@
-const Colors = ({ vegy, vegData, register }) => {
+const Colors = ({ vegy, vegData, register,getValues }) => {
   const selectedVegy = vegData.find(item => item.name === vegy)
+  // console.log(vegy);
   const colors = selectedVegy.colors
 
 
@@ -23,12 +24,13 @@ const Colors = ({ vegy, vegData, register }) => {
 
 
           Object.values(item)[0] && (
-            <label style={{ backgroundColor: `${Object.values(item)[0]}` }} key={Object.keys(item)[0]} className="custom-radio" >
-              <input hidden type="radio" name="options" value={Object.values(item)[0]} onClick={addBorder} {...register('color', { required: true })} />
+            <label style={{ backgroundColor: `${Object.values(item)[0]}` }} key={Object.keys(item)[0]} className={`custom-radio ${getValues("colorCode")===Object.values(item)[0]?"selected":""}`} >
+              <input hidden type="radio" name="options" value={Object.values(item)[0]} onClick={addBorder} {...register('colorCode', { required: true })} />
             </label>)
 
 
-        ))}
+          ))}
+          
 
       </div>
     </div>
